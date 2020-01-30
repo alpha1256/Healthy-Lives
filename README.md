@@ -3,5 +3,5 @@ This is an health application that will allow users to track their health stats 
 
 To clone this repository do
 ```
-
+git clone git@github.com:alpha1256/Healthy-Lives.git
 ```
