@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="home"
-        android:id="@+id/home"></item>
-    <item android:title="first"
-        android:id="@+id/first"></item>
-    <item android:title="setting"
-        android:id="@+id/setting"></item>
+    <item android:title="Heart Rate"
+        android:id="@+id/hr"></item>
+    <item android:title="Workouts"
+        android:id="@+id/workout"></item>
+    <item android:title="Sleep"
+        android:id="@+id/sleep"></item>
+    <item android:title="Social"
+        android:id="@+id/social"></item>
 </menu>
