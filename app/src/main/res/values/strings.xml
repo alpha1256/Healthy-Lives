@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Healthy Lives</string>
+    <string name ="greet">Welcome User</string>
+    <string name ="waterIn">Enter number of cups of water</string>
+    <string name ="addWater">+</string>
+    <string name ="subWater">-</string>
+    <string name="step">Steps:</string>
+    <string name ="active">Active minutes:</string>
 </resources>
