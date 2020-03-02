@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private int waterCount=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +62,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean callIntent(Activity name)
+    public void onClickAdd(View v)
     {
-        Intent intent = new Intent(this, name.getClass());
-        startActivity(intent);
-        return false;
+        TextView water = (TextView) findViewById(R.id.waterCounter);
+        waterCount = waterCount +1;
+        water.setText(String.valueOf(waterCount));
+    }
+
+    public void onClickSubtract(View v)
+    {
+        TextView water = (TextView) findViewById(R.id.waterCounter);
+        waterCount= waterCount -1;
+        if (waterCount < 0)
+        {
+            water.setText(String.valueOf(0));
+            waterCount =0;
+        }
+        else
+            water.setText(String.valueOf(waterCount));
     }
 }
