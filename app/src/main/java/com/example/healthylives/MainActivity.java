@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     {
         TextView water = (TextView) findViewById(R.id.waterCounter);
         waterCount= waterCount -1;
-        if (waterCount < 0)
+        if (waterCount <= 0)
         {
             water.setText(String.valueOf(0));
             waterCount =0;
