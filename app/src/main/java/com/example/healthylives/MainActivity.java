@@ -29,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensor = mSensormanager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         mSensormanager.registerListener(this, mSensor,SensorManager.SENSOR_DELAY_NORMAL);
 
+        onTwentyFour();
     }
 
     @Override
@@ -188,4 +191,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onStop();
         mSensormanager.unregisterListener(this);
     }**/
+
+    /**
+     * Every twenty four hours update db and reset step and water
+     */
+    public void onTwentyFour()
+    {
+        Timer timer =  new Timer();
+        TimerTask t = new TimerTask (){
+            @Override
+            public void run()
+            {
+                waterCount =0;
+                steps =0;
+                counterSteps =0;
+            }
+        };
+    }
 }
