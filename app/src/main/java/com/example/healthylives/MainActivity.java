@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     public void onTwentyFour()
     {
-        //TODO add to database before clearing 
+        //TODO add to database before clearing local variables
         Timer timer =  new Timer();
         TimerTask t = new TimerTask (){
             @Override
