@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int counterSteps =0;
     private SensorManager mSensormanager;
     private Sensor mSensor;
+    private DaysDbHelper mHelper;
 
 
     @Override
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensormanager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensormanager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         mSensormanager.registerListener(this, mSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        mHelper=new DaysDbHelper(this);
 
         onTwentyFour();
     }
