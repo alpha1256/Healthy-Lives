@@ -1,8 +1,10 @@
 package com.example.healthylives;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,6 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int waterCount=0;
     private int steps =0;
     private int counterSteps =0;
+    private String date;
+    private String activeMin="00:00";
+    private String sleepMin="00:00";
     private SensorManager mSensormanager;
     private Sensor mSensor;
     private DaysDbHelper mHelper;
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensor = mSensormanager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         mSensormanager.registerListener(this, mSensor,SensorManager.SENSOR_DELAY_NORMAL);
         mHelper=new DaysDbHelper(this);
-
+        getDate();
         onTwentyFour();
     }
 
@@ -200,15 +207,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onTwentyFour()
     {
         //TODO add to database before clearing local variables
+        SQLiteDatabase db=mHelper.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(DaysContract.DayEntry.COL_DAY_DATE, date);
+        values.put(DaysContract.DayEntry.COL_DAY_STEP, steps);
+        values.put(DaysContract.DayEntry.COL_DAY_MIN, activeMin);
+        values.put(DaysContract.DayEntry.COL_DAY_CUP, waterCount);
+        values.put(DaysContract.DayEntry.COL_DAY_SLEEP, sleepMin);
+        db.insertWithOnConflict(DaysContract.DayEntry.TABLE1, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.close();
         Timer timer =  new Timer();
         TimerTask t = new TimerTask (){
             @Override
             public void run()
             {
+                getDate();
                 waterCount =0;
                 steps =0;
                 counterSteps =0;
+                activeMin="00:00";
+                sleepMin="00:00";
             }
         };
+    }
+
+    public void getDate()
+    {
+        SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yy");
+        date=sdf.format(new Date());
     }
 }
