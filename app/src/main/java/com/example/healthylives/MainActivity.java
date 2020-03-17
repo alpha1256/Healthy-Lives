@@ -236,4 +236,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yy");
         date=sdf.format(new Date());
     }
+
+    public void getSleep()
+    {
+        //TODO get sleep data from sleep activity
+    }
 }
