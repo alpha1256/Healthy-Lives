@@ -1,6 +1,5 @@
 package com.example.healthylives;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -10,27 +9,17 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.example.healthylives.Database.DaysContract;
+import com.example.healthylives.Database.DaysDbHelper;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -73,12 +62,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         int id = item.getItemId();
         if (id == R.id.hr)
         {
-            Intent intent = new Intent(this, heartRateActivity.class);
+            Intent intent = new Intent(this, workoutPlanActivity.class);
             startActivity(intent);
             return false;
         }
 
-        else if (id == R.id.workout)
+        if (id == R.id.workout)
         {
             Intent intent = new Intent(this, workoutActivity.class);
             startActivity(intent);

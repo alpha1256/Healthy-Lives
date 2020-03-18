@@ -1,4 +1,4 @@
-package com.example.healthylives;
+package com.example.healthylives.Database;
 
 import android.provider.BaseColumns;
 
