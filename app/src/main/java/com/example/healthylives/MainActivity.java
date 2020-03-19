@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /**
      * Every twenty four hours update db and reset step and water
      */
+    //TODO change to alarm that calls service
     public void onTwentyFour()
     {
         //TODO add to database before clearing local variables

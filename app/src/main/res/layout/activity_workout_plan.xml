@@ -25,7 +25,7 @@
                 android:textSize="20sp" />
 
             <CalendarView
-                android:id="@+id/calendarView2"
+                android:id="@+id/calendarWork"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -53,6 +53,7 @@
                 android:id="@+id/logWorkPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="addNewWorkoutPlan"
                 android:text="Log Workout" />
         </LinearLayout>
     </ScrollView>
