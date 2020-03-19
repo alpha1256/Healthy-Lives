@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".logCardioActivity"
-            android:parentActivityName=".workoutActivity"></activity>
+        <activity android:name=".viewPlanActivity"
+            android:parentActivityName=".workoutPlanActivity"></activity>
+        <activity
+            android:name=".workoutPlanActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".logCardioActivity"
+            android:parentActivityName=".workoutActivity" />
         <activity
             android:name=".socialActivity"
             android:parentActivityName=".MainActivity" />
@@ -19,9 +25,6 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".workoutActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".heartRateActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
