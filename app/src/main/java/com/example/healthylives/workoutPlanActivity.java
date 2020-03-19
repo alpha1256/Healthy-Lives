@@ -3,6 +3,7 @@ package com.example.healthylives;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
@@ -43,6 +44,13 @@ public class workoutPlanActivity extends AppCompatActivity {
 
         Toast.makeText(this,time,Toast.LENGTH_SHORT).show();
     }
+
+    public void onClickView(View v)
+    {
+        Intent intent = new Intent(this, viewPlanActivity.class);
+        startActivity(intent);
+    }
+
 
 
 }
