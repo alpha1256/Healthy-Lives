@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class workoutPlanActivity extends AppCompatActivity {
     String date = new String();
 
@@ -27,7 +31,6 @@ public class workoutPlanActivity extends AppCompatActivity {
                 date=dayDate;
             }
         });
-    //TODO add adapter
     }
 
     //TODO add notification alerting them to go to gym when it correct time
@@ -42,7 +45,16 @@ public class workoutPlanActivity extends AppCompatActivity {
         int min = newTime.getCurrentMinute();
         String time = String.valueOf(hour) + ":" + String.valueOf(min);
 
-        Toast.makeText(this,time,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,time,Toast.LENGTH_SHORT).show();
+        String data = date + " / " + time + " /" + note+"\n";
+        try{
+            FileOutputStream stream = new FileOutputStream(new File(getFilesDir(),"all_workout.txt"), true);
+            stream.write(data.getBytes());
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void onClickView(View v)

@@ -25,6 +25,16 @@ public class workoutAdapter extends RecyclerView.Adapter<workoutAdapter.MyViewHo
              Time = (TextView) v.findViewById(R.id.timePlan);
              Note = (TextView) v.findViewById(R.id.notePlan);
              check = (CheckBox) v.findViewById(R.id.checkBox);
+             check.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if (check.isChecked())
+                     {
+                         removeAt(getAdapterPosition());
+                         notifyDataSetChanged();
+                     }
+                 }
+             });
          }
      }
     public workoutAdapter(List<workoutPlan> wlist){workoutList = wlist;}
