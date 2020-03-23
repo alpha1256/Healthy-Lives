@@ -1,13 +1,20 @@
 package com.example.healthylives;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.healthylives.Adapter.workoutAdapter;
 import com.example.healthylives.Adapter.workoutPlan;
@@ -20,7 +27,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class viewPlanActivity extends AppCompatActivity {
@@ -46,6 +55,7 @@ public class viewPlanActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         prepareTestDate();
+        onNotif();
     }
 
     public void prepareTestDate()
@@ -118,4 +128,37 @@ public class viewPlanActivity extends AppCompatActivity {
     }
 
     //TODO send notification when day is here
+    void onNotif()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+        String currentDateandTime = sdf.format(new Date());
+        for(int i =0; i < worklist.size(); i++)
+        {
+            String temp = worklist.get(i).getDate().trim();
+            //if (i==0)
+            //   Toast.makeText(this,temp,Toast.LENGTH_SHORT).show();
+            if(currentDateandTime.equals(temp))
+            {
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                String CHANNEL = "notification_work";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                {
+                    String name ="Channel name";
+                    String description = "This is the channel for the workout planner";
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(CHANNEL, name,importance);
+                    channel.setDescription(description);
+                    manager.createNotificationChannel(channel);
+                }
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL)
+                        .setSmallIcon(R.drawable.running_cm)
+                        .setContentTitle("Your Scheduled Workout")
+                        .setContentText("It " + currentDateandTime);
+                        //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                manager.notify(0,builder.build());
+                Toast.makeText(this,"true",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
