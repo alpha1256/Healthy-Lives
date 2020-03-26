@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -132,12 +133,18 @@ public class viewPlanActivity extends AppCompatActivity {
     {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
         String currentDateandTime = sdf.format(new Date());
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("h:mm aa");
+        String currTime = mdformat.format(calendar.getTime());
+        Toast.makeText(this,currTime,Toast.LENGTH_SHORT).show();
+
         for(int i =0; i < worklist.size(); i++)
         {
             String temp = worklist.get(i).getDate().trim();
+            String tempTime = worklist.get(i).getTime().trim();
             //if (i==0)
             //   Toast.makeText(this,temp,Toast.LENGTH_SHORT).show();
-            if(currentDateandTime.equals(temp))
+            if(currentDateandTime.equals(temp) && currTime.equals(tempTime))
             {
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 String CHANNEL = "notification_work";

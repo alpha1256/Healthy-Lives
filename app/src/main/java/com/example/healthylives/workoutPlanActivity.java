@@ -44,12 +44,44 @@ public class workoutPlanActivity extends AppCompatActivity {
 
         String note = String.valueOf(text.getText());
         int hour = newTime.getCurrentHour();
-        int min = newTime.getCurrentMinute();
-        String time = String.valueOf(hour) + ":" + String.valueOf(min);
+        int min = 0;
+        min = newTime.getCurrentMinute();
+        String newMin = "";
+        /**
+         * Time parsing
+         */
+        if (min < 10)
+        {
+            newMin = "0" + min;
+        }
+        else
+        {
+            newMin = String.valueOf(min);
+        }
+
+        String timeFormat = "";
+
+        if (hour ==0)
+        {
+            hour += 12;
+            timeFormat = "AM";
+        }else if (hour ==12)
+        {
+            timeFormat = "PM";
+        }else if (hour > 12)
+        {
+            hour -= 12;
+            timeFormat = "PM";
+        }else {
+            timeFormat = "AM";
+        }
+
+
+        String time = String.valueOf(hour) + ":" + String.valueOf(newMin) + " "+ timeFormat;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
         String currentDateandTime = sdf.format(new Date());
 
-        Toast.makeText(this,currentDateandTime,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,time,Toast.LENGTH_SHORT).show();
         String data = date + " / " + time + " /" + note+"\n";
         text.setText("");
         try{
