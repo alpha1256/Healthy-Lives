@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int counterSteps =0;
     private String date;
     private String activeMin="00:00";
-    private String sleepMin="00:00";
+    public static String sleepMin="00:00";
     private SensorManager mSensormanager;
     private Sensor mSensor;
     private DaysDbHelper mHelper;

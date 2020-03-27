@@ -7,11 +7,14 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+import static com.example.healthylives.MainActivity.sleepMin;
+
 public class sleepActivity extends AppCompatActivity {
 
     TextView recordSleep;
     private boolean recording;
     private int seconds=0;
+    private String time=" ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class sleepActivity extends AppCompatActivity {
     public void onClickStop (View v)
     {
         //recordSleep.setText(" ");
+        sleepMin=time;
         recording=false;
         seconds=0;
     }
@@ -59,7 +63,7 @@ public class sleepActivity extends AppCompatActivity {
                 int minutes= (seconds%3600)/60;
                 int secs=seconds%60;
 
-                String time=String.format("%d:%02d:%02d", hours, minutes, secs);
+                time=String.format("%d:%02d:%02d", hours, minutes, secs);
 
                 timeView.setText(time);
 
@@ -72,4 +76,6 @@ public class sleepActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
