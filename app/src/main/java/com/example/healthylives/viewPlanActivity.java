@@ -120,9 +120,6 @@ public class viewPlanActivity extends AppCompatActivity {
                 counter++;
             }
             stream.close();
-            //adapter.notifyDataSetChanged();
-            //recyclerView
-            //Log.d("UpList", String.valueOf(counter));
         }catch(IOException e) {
             e.printStackTrace();
         }
@@ -135,15 +132,14 @@ public class viewPlanActivity extends AppCompatActivity {
         String currentDateandTime = sdf.format(new Date());
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("h:mm aa");
-        String currTime = mdformat.format(calendar.getTime());
-        Toast.makeText(this,currTime,Toast.LENGTH_SHORT).show();
+        String currTime = mdformat.format(calendar.getTime()).trim();
+        //Toast.makeText(this,currTime,Toast.LENGTH_SHORT).show();
 
         for(int i =0; i < worklist.size(); i++)
         {
             String temp = worklist.get(i).getDate().trim();
             String tempTime = worklist.get(i).getTime().trim();
-            //if (i==0)
-            //   Toast.makeText(this,temp,Toast.LENGTH_SHORT).show();
+
             if(currentDateandTime.equals(temp) && currTime.equals(tempTime))
             {
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

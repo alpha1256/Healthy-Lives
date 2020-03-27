@@ -30,7 +30,7 @@ public class workoutPlanActivity extends AppCompatActivity {
         newDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String dayDate = dayOfMonth + "-" + month  + "-" + year ;
+                String dayDate = dayOfMonth + "-" + (month+1)  + "-" + year ;
                 date=dayDate;
             }
         });
