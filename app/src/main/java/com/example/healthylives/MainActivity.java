@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,11 +25,21 @@ import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
 import com.example.healthylives.Services.SendDataToDB;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static java.sql.Types.NULL;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -35,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int steps =0;
     private int counterSteps =0;
     private String date;
-    private String activeMin="00:00";
+    private int activeMin=0;
     private String sleepMin="00:00";
     private SensorManager mSensormanager;
     private Sensor mSensor;
@@ -46,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public final static String WATER = "Intake for today";
     public final static String SLEEP = "Sleep for today";
     public final static String ACTIVE = "Active min for today";
+    public final static String COUNTSTEPS = "Counter steps";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,59 +151,59 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (counterSteps < 1)
             counterSteps = (int) event.values[0];
         steps = (int) event.values[0] - counterSteps;
+        activeMin = steps / 60;
+        TextView active = findViewById(R.id.activeMin);
+        active.setText(String.valueOf(activeMin));
         TextView stepCount = (TextView) findViewById(R.id.stepCounter);
         stepCount.setText(String.valueOf(steps));
     }
 
-    /**
+
     @Override
-    public void onDestroy()
+    public void onPause()
     {
-        super.onDestroy();
-        //Steps then step counter
-        String message = steps + "\n" + counterSteps;
-        try{
-            FileOutputStream saveFile = new FileOutputStream(new File(getFilesDir(),"step.txt"));
-            saveFile.write(message.getBytes());
-            Toast.makeText(this,"message", Toast.LENGTH_SHORT).show();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        super.onPause();
+        SharedPreferences sp = getSharedPreferences("Localdata", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(STEPS,steps);
+        editor.putInt(COUNTSTEPS, counterSteps);
+        if (waterCount > 0)
+            editor.putInt(WATER,waterCount);
+        if (activeMin > 0)
+            editor.putInt(ACTIVE,activeMin);
+        editor.commit();
+        //Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
     }
 
+    /****/
     @Override
     public void onResume()
     {
         super.onResume();
-        try{
-            InputStream fis = new FileInputStream(new File(getFilesDir(), "step.txt"));
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            if (br.readLine() == null)
-            {
-                Toast.makeText(this, "On destroy wasnt called", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                int counter =0;
-                while (br.readLine() != null)
-                {
-                    if (counter ==0)
-                    {
-                        steps = Integer.parseInt(br.readLine());
-                        counter++;
-                    }
-                    else
-                        counterSteps = Integer.parseInt(br.readLine());
-                }
-            }
-        }catch (IOException e)
+        SharedPreferences sp = getSharedPreferences("Localdata", Context.MODE_PRIVATE);
+        if (sp.getInt(STEPS,0) == NULL)
         {
-            e.printStackTrace();
+            //Toast.makeText(this,"NULL", Toast.LENGTH_SHORT).show();
         }
-    }**/
+        else{
+            steps = sp.getInt(STEPS,1);
+            counterSteps = sp.getInt(COUNTSTEPS,0);
+            if (sp.getInt(WATER,0) != NULL)
+            {
+                waterCount = sp.getInt(WATER,0);
+                TextView waterTxt = findViewById(R.id.waterCounter);
+                waterTxt.setText(String.valueOf(waterCount));
+            }
 
+            if (sp.getInt(ACTIVE,0) != NULL)
+            {
+                activeMin = sp.getInt(ACTIVE,0);
+                TextView active = findViewById(R.id.activeMin);
+                active.setText(String.valueOf(activeMin));
+            }
+        }
+
+    }
 
     /**
     @Override
@@ -236,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         waterCount =0;
         steps =0;
         counterSteps =0;
-        activeMin="00:00";
+        activeMin=0;
         sleepMin="00:00";
         stopService(new Intent(this,SendDataToDB.class));
     }
