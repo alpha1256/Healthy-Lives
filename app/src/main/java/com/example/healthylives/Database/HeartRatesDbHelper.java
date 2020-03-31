@@ -1,8 +1,10 @@
-package com.example.healthylives;
+package com.example.healthylives.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.healthylives.Database.DaysContract;
 
 public class HeartRatesDbHelper extends SQLiteOpenHelper {
     public HeartRatesDbHelper(Context context)

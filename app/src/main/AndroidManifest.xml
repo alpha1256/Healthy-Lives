@@ -4,13 +4,24 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/running_cm"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".logCardioActivity"
-            android:parentActivityName=".workoutActivity"></activity>
+        <service
+            android:name=".Services.SendDataToDB"
+            android:exported="false"></service>
+
+        <activity
+            android:name=".viewPlanActivity"
+            android:parentActivityName=".workoutPlanActivity" />
+        <activity
+            android:name=".workoutPlanActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".logCardioActivity"
+            android:parentActivityName=".workoutActivity" />
         <activity
             android:name=".socialActivity"
             android:parentActivityName=".MainActivity" />
@@ -19,9 +30,6 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".workoutActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".heartRateActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
