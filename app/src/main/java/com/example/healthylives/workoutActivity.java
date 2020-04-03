@@ -21,3 +21,5 @@ public class workoutActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+//TODO add method to retrieve workout data from database
