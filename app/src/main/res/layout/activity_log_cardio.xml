@@ -23,13 +23,10 @@
             android:hint="Name of workout"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/dateWork"
+        <CalendarView
+            android:id="@+id/calendarCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Date DD:MM:YY"
-            android:inputType="textPersonName" />
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/duration"
@@ -59,5 +56,6 @@
             android:text="Add Workout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
