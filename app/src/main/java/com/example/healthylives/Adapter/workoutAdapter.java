@@ -53,7 +53,14 @@ public class workoutAdapter extends RecyclerView.Adapter<workoutAdapter.MyViewHo
         holder.Date.setText(work.getDate());
         holder.Time.setText(work.getTime());
         holder.Note.setText(work.getNote());
-        holder.check.setChecked(false);
+        boolean temp = work.getCheckMark();
+        if (temp == false)
+            holder.check.setChecked(false);
+        else
+        {
+            holder.check.setChecked(true);
+            workoutList.remove(work);
+        }
     }
 
     @Override
