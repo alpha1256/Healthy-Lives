@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,6 +55,13 @@ public class sendNotif extends Service {
         //Bundle args = intent.getBundleExtra(viewPlanActivity.Notef);
         worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra(viewPlanActivity.Notef);
         onNotif();
+        Intent broadCastIntent = new Intent();
+        broadCastIntent.setAction(viewPlanActivity.BROADCAST_ACTION);
+
+        broadCastIntent.putExtra("Notef", (Serializable)worklist);
+
+        sendBroadcast(broadCastIntent);
+
         return START_STICKY;
     }
 

@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +47,8 @@ public class viewPlanActivity extends AppCompatActivity {
     private  List<workoutPlan> worklist= new ArrayList<workoutPlan>();
     private workoutAdapter adapter;
     public static final String Notef = "This contains the worklist";
+    public static final String BROADCAST_ACTION= "RECEIVER";
+    MyBroadCastReceiver myBroadCastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,8 @@ public class viewPlanActivity extends AppCompatActivity {
         //onNotif();
 
         startPlanNotify();
+        //TODO check on what is crashing reciever
+        registerMyReceiver();
     }
 
     public void prepareTestDate()
@@ -114,6 +121,7 @@ public class viewPlanActivity extends AppCompatActivity {
         super.onStop();
         onUpdate();
         stopService(new Intent(this, sendNotif.class));
+        unregisterReceiver(myBroadCastReceiver);
     }
 
     void onUpdate()
@@ -185,6 +193,31 @@ public class viewPlanActivity extends AppCompatActivity {
         //args.putSerializable("Array", (Serializable)worklist);
         intent.putExtra(Notef, (Serializable)worklist);
         startService(intent);
+    }
+
+    private void registerMyReceiver() {
+
+        try
+        {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(BROADCAST_ACTION);
+            registerReceiver(myBroadCastReceiver, intentFilter);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
+
+    class MyBroadCastReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            intent.getAction();
+            worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra("Notef");
+        }
     }
 
 }
