@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -34,23 +37,37 @@ import java.util.List;
  * a service on a separate handler thread.
  * <p>
  **/
-public class sendNotif extends IntentService {
+public class sendNotif extends Service {
 
     private List<workoutPlan> worklist= new ArrayList<>();
 
-    public sendNotif() {
-        super("sendNotif");
+    @Override
+    public void onCreate()
+    {
+        Toast.makeText(this, "Started", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            intent.getAction();
-            //Bundle args = intent.getBundleExtra(viewPlanActivity.Notef);
-            worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra(viewPlanActivity.Notef);
-            onNotif();
-        }
+    public int onStartCommand(Intent intent, int flags ,int startid)
+    {
+        intent.getAction();
+        //Bundle args = intent.getBundleExtra(viewPlanActivity.Notef);
+        worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra(viewPlanActivity.Notef);
+        onNotif();
+        return START_STICKY;
     }
+
+    @Override
+    public void onDestroy()
+    {
+        Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
 
     public void onNotif()
     {
@@ -88,10 +105,8 @@ public class sendNotif extends IntentService {
                 //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 manager.notify(0,builder.build());
                 worklist.get(i).setCheckMark(true);
-                Toast.makeText(this,"Marked for deletion",Toast.LENGTH_SHORT).show();
             }
-            //else
-            //    Toast.makeText(this,"Not true", Toast.LENGTH_SHORT).show();
+            Log.d("Note", "1");
         }
     }
 }

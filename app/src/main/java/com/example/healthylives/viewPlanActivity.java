@@ -62,9 +62,9 @@ public class viewPlanActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         prepareTestDate();
 
-        onNotif();
+        //onNotif();
 
-        //startPlanNotify();
+        startPlanNotify();
     }
 
     public void prepareTestDate()
@@ -113,6 +113,7 @@ public class viewPlanActivity extends AppCompatActivity {
     {
         super.onStop();
         onUpdate();
+        stopService(new Intent(this, sendNotif.class));
     }
 
     void onUpdate()
@@ -185,4 +186,5 @@ public class viewPlanActivity extends AppCompatActivity {
         intent.putExtra(Notef, (Serializable)worklist);
         startService(intent);
     }
+
 }
