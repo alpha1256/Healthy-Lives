@@ -14,13 +14,14 @@ import android.widget.Toast;
 import com.example.healthylives.Database.DaysContract;
 
 import static com.example.healthylives.MainActivity.mHelper;
+import static java.lang.Float.parseFloat;
 
 public class logCardioActivity extends AppCompatActivity {
     private String timeWorkout = new String();
     private String nameWorkout = new String();
     private String dateWorkout = new String();
     private String durationWorkout = new String();
-    private String distanceWorkout = new String();
+    private float distanceWorkout = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,8 @@ public class logCardioActivity extends AppCompatActivity {
 
         nameWorkout = name.getText().toString();
         durationWorkout = duration.getText().toString();
-        distanceWorkout = distance.getText().toString();
+        String temp = distance.getText().toString();
+        distanceWorkout=parseFloat(temp);
         //Also Add 'dateWorkout' to database
 
         Toast.makeText(this,"Added to DB", Toast.LENGTH_SHORT).show();
