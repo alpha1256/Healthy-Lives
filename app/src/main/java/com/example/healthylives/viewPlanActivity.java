@@ -48,7 +48,9 @@ public class viewPlanActivity extends AppCompatActivity {
     private workoutAdapter adapter;
     public static final String Notef = "This contains the worklist";
     public static final String BROADCAST_ACTION= "RECEIVER";
-    MyBroadCastReceiver myBroadCastReceiver;
+    MyBroadCastReceiver myBroadCastReceiver = new MyBroadCastReceiver();
+    private int i;
+    private boolean check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +72,11 @@ public class viewPlanActivity extends AppCompatActivity {
         //onNotif();
 
         startPlanNotify();
-        //TODO check on what is crashing reciever
         registerMyReceiver();
+        /**if (check == true)
+        {
+            setTrueValue();
+        }*/
     }
 
     public void prepareTestDate()
@@ -121,6 +126,12 @@ public class viewPlanActivity extends AppCompatActivity {
         super.onStop();
         onUpdate();
         stopService(new Intent(this, sendNotif.class));
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
         unregisterReceiver(myBroadCastReceiver);
     }
 
@@ -216,8 +227,20 @@ public class viewPlanActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent)
         {
             intent.getAction();
-            worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra("Notef");
+            List<workoutPlan> templist= new ArrayList<workoutPlan>();
+            i = intent.getIntExtra("Notef", 0);
+            check = true;
+            setTrueValue();
+            ////Log.d("Boolean", String.valueOf(worklist.get(i).getCheckMark()));
         }
+    }
+
+    public void setTrueValue()
+    {
+        worklist.get(i).setCheckMark(true);
+        Log.d("Adapt", "Changed");
+        adapter.notifyDataSetChanged();
+
     }
 
 }

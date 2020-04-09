@@ -41,6 +41,8 @@ import java.util.List;
 public class sendNotif extends Service {
 
     private List<workoutPlan> worklist= new ArrayList<>();
+    private boolean check = false;
+    private int numbValue;
 
     @Override
     public void onCreate()
@@ -55,13 +57,16 @@ public class sendNotif extends Service {
         //Bundle args = intent.getBundleExtra(viewPlanActivity.Notef);
         worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra(viewPlanActivity.Notef);
         onNotif();
-        Intent broadCastIntent = new Intent();
-        broadCastIntent.setAction(viewPlanActivity.BROADCAST_ACTION);
+        if (check == true) {
+            Intent broadCastIntent = new Intent();
 
-        broadCastIntent.putExtra("Notef", (Serializable)worklist);
+            broadCastIntent.setAction(viewPlanActivity.BROADCAST_ACTION);
 
-        sendBroadcast(broadCastIntent);
-
+            //broadCastIntent.putExtra("Notef", (Serializable) worklist);
+            broadCastIntent.putExtra("Notef", numbValue);
+            sendBroadcast(broadCastIntent);
+            Log.d("BroadCast0", "BroadCast received");
+        }
         return START_STICKY;
     }
 
@@ -112,7 +117,9 @@ public class sendNotif extends Service {
                         .setContentText(worklist.get(i).getNote());
                 //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 manager.notify(0,builder.build());
-                worklist.get(i).setCheckMark(true);
+                check = true;
+                numbValue = i;
+                //worklist.get(i).setCheckMark(true);
             }
             Log.d("Note", "1");
         }
