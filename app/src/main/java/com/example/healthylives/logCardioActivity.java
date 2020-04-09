@@ -12,8 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.healthylives.Database.DaysContract;
+import com.example.healthylives.Database.DaysDbHelper;
 
-import static com.example.healthylives.MainActivity.mHelper;
+
 import static java.lang.Float.parseFloat;
 
 public class logCardioActivity extends AppCompatActivity {
@@ -22,12 +23,14 @@ public class logCardioActivity extends AppCompatActivity {
     private String dateWorkout = new String();
     private String durationWorkout = new String();
     private float distanceWorkout = 0;
+    public DaysDbHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_cardio);
         setTitle("Add New Workout");
+        mHelper=new DaysDbHelper(this);
         CalendarView newDate = findViewById(R.id.calendarCard);
         newDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
