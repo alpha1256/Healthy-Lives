@@ -1,4 +1,4 @@
-package com.example.healthylives;
+package com.example.healthylives.Services;
 
 import android.app.Service;
 import android.content.Intent;

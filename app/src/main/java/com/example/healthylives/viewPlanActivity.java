@@ -11,13 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.healthylives.Adapter.workoutAdapter;
 import com.example.healthylives.Adapter.workoutPlan;
+import com.example.healthylives.Services.sendNotif;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -27,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,8 +44,13 @@ public class viewPlanActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<workoutPlan> worklist= new ArrayList<>();
+    private  List<workoutPlan> worklist= new ArrayList<workoutPlan>();
     private workoutAdapter adapter;
+    public static final String Notef = "This contains the worklist";
+    public static final String BROADCAST_ACTION= "RECEIVER";
+    MyBroadCastReceiver myBroadCastReceiver = new MyBroadCastReceiver();
+    private int i;
+    private boolean check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +68,15 @@ public class viewPlanActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         prepareTestDate();
-        onNotif();
+
+        //onNotif();
+
+        startPlanNotify();
+        registerMyReceiver();
+        /**if (check == true)
+        {
+            setTrueValue();
+        }*/
     }
 
     public void prepareTestDate()
@@ -105,6 +125,14 @@ public class viewPlanActivity extends AppCompatActivity {
     {
         super.onStop();
         onUpdate();
+        stopService(new Intent(this, sendNotif.class));
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        unregisterReceiver(myBroadCastReceiver);
     }
 
     void onUpdate()
@@ -125,15 +153,15 @@ public class viewPlanActivity extends AppCompatActivity {
         }
     }
 
-    //TODO send notification when day is here
-    void onNotif()
+    //TODO move this to a service so  it always running
+    public void onNotif()
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("d-M-yyyy");
         String currentDateandTime = sdf.format(new Date());
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("h:mm aa");
         String currTime = mdformat.format(calendar.getTime()).trim();
-        //Toast.makeText(this,currTime,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,currentDateandTime,Toast.LENGTH_SHORT).show();
 
         for(int i =0; i < worklist.size(); i++)
         {
@@ -157,11 +185,62 @@ public class viewPlanActivity extends AppCompatActivity {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL)
                         .setSmallIcon(R.drawable.running_cm)
                         .setContentTitle("Your Scheduled Workout")
-                        .setContentText("It " + currentDateandTime);
+                        .setContentText(worklist.get(i).getNote());
                         //.setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 manager.notify(0,builder.build());
-                Toast.makeText(this,"true",Toast.LENGTH_SHORT).show();
+                worklist.get(i).setCheckMark(true);
+                Toast.makeText(this,"Marked for deletion",Toast.LENGTH_SHORT).show();
             }
+            //else
+            //    Toast.makeText(this,"Not true", Toast.LENGTH_SHORT).show();
         }
     }
+
+    //TODO work on receiving updated information from service
+    public void startPlanNotify()
+    {
+        Intent intent = new Intent(this, sendNotif.class);
+        //Bundle args = new Bundle();
+        //args.putSerializable("Array", (Serializable)worklist);
+        intent.putExtra(Notef, (Serializable)worklist);
+        startService(intent);
+    }
+
+    private void registerMyReceiver() {
+
+        try
+        {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(BROADCAST_ACTION);
+            registerReceiver(myBroadCastReceiver, intentFilter);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
+
+    class MyBroadCastReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            intent.getAction();
+            List<workoutPlan> templist= new ArrayList<workoutPlan>();
+            i = intent.getIntExtra("Notef", 0);
+            check = true;
+            setTrueValue();
+            ////Log.d("Boolean", String.valueOf(worklist.get(i).getCheckMark()));
+        }
+    }
+
+    public void setTrueValue()
+    {
+        worklist.get(i).setCheckMark(true);
+        Log.d("Adapt", "Changed");
+        adapter.notifyDataSetChanged();
+
+    }
+
 }

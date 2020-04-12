@@ -8,8 +8,10 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.healthylives.Services.SleepTimer;
+
 import static com.example.healthylives.MainActivity.sleepMin;
-import static com.example.healthylives.SleepTimer.time;
+import static com.example.healthylives.Services.SleepTimer.time;
 
 public class sleepActivity extends AppCompatActivity {
 

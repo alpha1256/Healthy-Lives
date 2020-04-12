@@ -1,15 +1,19 @@
 package com.example.healthylives.Adapter;
 
-public class workoutPlan {
+import java.io.Serializable;
+
+public class workoutPlan implements Serializable {
     private String date;
     private String time;
     private String note;
+    private boolean checkMark;
 
     public workoutPlan()
     {
         date = null;
         time = null;
         note = null;
+        checkMark = false;
     }
 
     public workoutPlan(String d, String t, String n)
@@ -17,6 +21,7 @@ public class workoutPlan {
         date = d;
         time = t;
         note = n;
+        checkMark = false;
     }
 
     public void setDate (String d)
@@ -34,6 +39,8 @@ public class workoutPlan {
         note = n;
     }
 
+    public void setCheckMark(boolean c){checkMark = c;}
+
     public String getDate() {
         return date;
     }
@@ -45,4 +52,7 @@ public class workoutPlan {
     public String getTime() {
         return time;
     }
+
+    public boolean getCheckMark(){return checkMark;}
+
 }
