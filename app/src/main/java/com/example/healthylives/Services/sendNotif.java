@@ -55,19 +55,22 @@ public class sendNotif extends Service {
     {
         intent.getAction();
         //Bundle args = intent.getBundleExtra(viewPlanActivity.Notef);
-        worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra(viewPlanActivity.Notef);
-        onNotif();
-        if (check == true) {
-            Intent broadCastIntent = new Intent();
+        while (true) {
+            worklist = (ArrayList<workoutPlan>) intent.getSerializableExtra(viewPlanActivity.Notef);
+            onNotif();
+            if (check == true) {
+                Intent broadCastIntent = new Intent();
 
-            broadCastIntent.setAction(viewPlanActivity.BROADCAST_ACTION);
+                broadCastIntent.setAction(viewPlanActivity.BROADCAST_ACTION);
 
-            //broadCastIntent.putExtra("Notef", (Serializable) worklist);
-            broadCastIntent.putExtra("Notef", numbValue);
-            sendBroadcast(broadCastIntent);
-            Log.d("BroadCast0", "BroadCast received");
-        }
+                //broadCastIntent.putExtra("Notef", (Serializable) worklist);
+                broadCastIntent.putExtra("Notef", numbValue);
+                sendBroadcast(broadCastIntent);
+                Log.d("BroadCast0", "BroadCast received");
+            }
+
         return START_STICKY;
+        }
     }
 
     @Override
