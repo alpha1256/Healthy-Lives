@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
+import com.example.healthylives.Database.WorkoutsDbHelper;
 
 
 import static java.lang.Float.parseFloat;
@@ -23,14 +24,15 @@ public class logCardioActivity extends AppCompatActivity {
     private String dateWorkout = new String();
     private String durationWorkout = new String();
     private float distanceWorkout = 0;
-    public DaysDbHelper mHelper;
+    private String temp=" ";
+    private WorkoutsDbHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_cardio);
         setTitle("Add New Workout");
-        mHelper=new DaysDbHelper(this);
+        mHelper=new WorkoutsDbHelper(this);
         CalendarView newDate = findViewById(R.id.calendarCard);
         newDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -53,8 +55,17 @@ public class logCardioActivity extends AppCompatActivity {
 
         nameWorkout = name.getText().toString();
         durationWorkout = duration.getText().toString();
-        String temp = distance.getText().toString();
-        distanceWorkout=parseFloat(temp);
+        temp = distance.getText().toString();
+        if(temp.isEmpty())
+        {
+            distanceWorkout=0;
+        }
+        else
+        {
+            distanceWorkout=parseFloat(temp);
+        }
+
+
         //Also Add 'dateWorkout' to database
 
         Toast.makeText(this,"Added to DB", Toast.LENGTH_SHORT).show();

@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.healthylives.Adapter.Workout;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
+import com.example.healthylives.Database.WorkoutsDbHelper;
 
 import java.util.ArrayList;
 
@@ -18,13 +19,13 @@ import java.util.ArrayList;
 
 public class workoutActivity extends AppCompatActivity {
 
-    public DaysDbHelper mHelper;
+    private WorkoutsDbHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-        mHelper=new DaysDbHelper(this);
+        mHelper=new WorkoutsDbHelper(this);
         setTitle("Workout");
     }
 
