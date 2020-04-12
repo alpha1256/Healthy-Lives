@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".Services.SendDataToDB"
+            android:name=".Services.sendNotif"
             android:exported="false"></service>
+        <service
+            android:name=".Services.SendDataToDB"
+            android:exported="false" />
 
         <activity
             android:name=".viewPlanActivity"
@@ -38,7 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".SleepTimer"></service>
+
+        <service android:name=".Services.SleepTimer" />
     </application>
 
 </manifest>
