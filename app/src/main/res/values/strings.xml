@@ -6,4 +6,5 @@
     <string name="subWater">-</string>
     <string name="step">Steps:</string>
     <string name="active">Active minutes:</string>
+    <string name="set">Settings</string>
 </resources>
