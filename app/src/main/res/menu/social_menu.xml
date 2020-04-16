@@ -7,7 +7,7 @@
         android:title="Friend List" />
     <item
         android:id="@+id/setting"
-        android:icon="@drawable/gearicon"
+        android:icon="@drawable/gearIcon"
         android:title="@string/set"
         app:showAsAction="ifRoom"/>
 </menu>
