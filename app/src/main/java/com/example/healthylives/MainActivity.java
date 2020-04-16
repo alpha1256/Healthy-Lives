@@ -2,9 +2,11 @@ package com.example.healthylives;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public final static String SLEEP = "Sleep for today";
     public final static String ACTIVE = "Active min for today";
     public final static String COUNTSTEPS = "Counter steps";
+    public static final String BROADCAST_RECEIVER= "RECEIVER";
+    SleepBroadCast receiveSleep = new SleepBroadCast();
 
 
     @Override
@@ -264,8 +268,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         date=sdf.format(new Date());
     }
 
-    public void getSleep()
+
+
+    private void registerReceiver()
     {
-        //TODO get sleep data from sleep activity
+        try{
+            IntentFilter intFilter = new IntentFilter();
+            intFilter.addAction(BROADCAST_RECEIVER);
+            registerReceiver(receiveSleep, intFilter);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    class SleepBroadCast extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            intent.getAction();
+            sleepMin = intent.getStringExtra("SLEEP");
+        }
     }
 }
