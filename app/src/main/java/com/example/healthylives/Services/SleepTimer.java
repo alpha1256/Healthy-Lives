@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
+import com.example.healthylives.MainActivity;
+
 public class SleepTimer extends Service {
 
     private boolean recording;
@@ -41,6 +43,12 @@ public class SleepTimer extends Service {
     public void onDestroy()
     {
         seconds=0;
+
+        Intent broadCast = new Intent();
+        broadCast.setAction(MainActivity.BROADCAST_RECEIVER);
+        broadCast.putExtra("SLEEP", time);
+        sendBroadcast(broadCast);
+
         super.onDestroy();
     }
 
