@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mHelper=new DaysDbHelper(this);
         getDate();
         onTwentyFour();
+        registerReceiver();
     }
 
     @Override
