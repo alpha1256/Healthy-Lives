@@ -223,10 +223,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /**
      * Every twenty four hours update db and reset step and water
      */
-    //TODO change to alarm that calls service
     public void onTwentyFour()
     {
-        //TODO add to database before clearing local variables
         alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, SendDataToDB.class);
         intent.putExtra(SLEEP, sleepMin);
@@ -292,4 +290,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sleepMin = intent.getStringExtra("SLEEP");
         }
     }
+
+    //TODO add method to retrieve this data from the database
 }

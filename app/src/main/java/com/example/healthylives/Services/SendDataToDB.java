@@ -63,7 +63,8 @@ public class SendDataToDB extends IntentService {
             String water = intent.getStringExtra(MainActivity.WATER);
             String sleep = intent.getStringExtra(MainActivity.SLEEP);
             String active = intent.getStringExtra(MainActivity.ACTIVE);
-            //TODO add database here
+            //TODO send all of this data to the database
+            
         }
     }
 
