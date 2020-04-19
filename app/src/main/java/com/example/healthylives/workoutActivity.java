@@ -19,13 +19,13 @@ import java.util.ArrayList;
 
 public class workoutActivity extends AppCompatActivity {
 
-    private WorkoutsDbHelper mHelper;
+    public static WorkoutsDbHelper workoutHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-        mHelper=new WorkoutsDbHelper(this);
+        workoutHelper=new WorkoutsDbHelper(this);
         setTitle("Workout");
     }
 
@@ -38,7 +38,7 @@ public class workoutActivity extends AppCompatActivity {
     public ArrayList<Workout> getWorkouts()
     {
         ArrayList<Workout> workoutList=new ArrayList<>();
-        SQLiteDatabase db=mHelper.getReadableDatabase();
+        SQLiteDatabase db=workoutHelper.getReadableDatabase();
         Cursor cursor=db.query(DaysContract.DayEntry.TABLE2, new String[]{DaysContract.DayEntry._ID, DaysContract.DayEntry.COL_WORKOUT_TIME, DaysContract.DayEntry.COL_WORKOUT_NAME, DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_WORKOUT_DURATION, DaysContract.DayEntry.COL_WORKOUT_DISTANCE}, null, null, null, null, null);
         while (cursor.moveToNext())
         {
