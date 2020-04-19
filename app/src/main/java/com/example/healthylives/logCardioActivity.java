@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.healthylives.Database.DaysContract;
@@ -69,13 +70,45 @@ public class logCardioActivity extends AppCompatActivity {
 
     public void onAddWork(View v)
     {
-        EditText time = findViewById(R.id.timeWork);
+        //EditText time = findViewById(R.id.timeWork);
         EditText name = findViewById(R.id.nameWork);
         EditText duration = findViewById(R.id.duration);
         EditText distance = findViewById(R.id.distance);
 
+        //Time Parsing
+        TimePicker time = findViewById(R.id.timePickerWork);
+        int hour = time.getCurrentHour();
+        int min = 0;
+        min = time.getCurrentMinute();
+        String newMin = "";
+        if (min < 10)
+        {
+            newMin = "0" + min;
+        }
+        else
+        {
+            newMin = String.valueOf(min);
+        }
 
-        timeWorkout = time.getText().toString();
+        String timeFormat = "";
+
+        if (hour ==0)
+        {
+            hour += 12;
+            timeFormat = "AM";
+        }else if (hour ==12)
+        {
+            timeFormat = "PM";
+        }else if (hour > 12)
+        {
+            hour -= 12;
+            timeFormat = "PM";
+        }else {
+            timeFormat = "AM";
+        }
+        timeWorkout = String.valueOf(hour) + ":" + String.valueOf(newMin) + " "+ timeFormat;
+
+        //timeWorkout = time.getText().toString();
 
         nameWorkout = name.getText().toString();
         durationWorkout = duration.getText().toString();
@@ -94,7 +127,7 @@ public class logCardioActivity extends AppCompatActivity {
 
         Toast.makeText(this,"Added to DB", Toast.LENGTH_SHORT).show();
 
-        time.setText("");
+        //time.setText("");
         name.setText("");
         duration.setText("");
         distance.setText("");

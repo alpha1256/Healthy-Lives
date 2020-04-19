@@ -64,7 +64,7 @@ public class SendDataToDB extends IntentService {
             String sleep = intent.getStringExtra(MainActivity.SLEEP);
             String active = intent.getStringExtra(MainActivity.ACTIVE);
             //TODO send all of this data to the database
-            
+
         }
     }
 
