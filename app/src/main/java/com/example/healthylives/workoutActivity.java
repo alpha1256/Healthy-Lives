@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.healthylives.Adapter.Workout;
@@ -27,6 +28,13 @@ public class workoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
         workoutHelper=new WorkoutsDbHelper(this);
         setTitle("Workout");
+        /*Uncomment this block to test getWorkout
+        ArrayList<Workout> temp = getWorkouts();
+        for (int i=0; i < temp.size(); i++)
+        {
+            Log.d("TList date", String.valueOf(temp.get(i).getDate()));
+            Log.d("Tlist duration", String.valueOf(temp.get(i).getDuration()));
+        }**/
     }
 
     public void onClickCard(View v)
