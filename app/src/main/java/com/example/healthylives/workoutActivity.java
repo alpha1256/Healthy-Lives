@@ -28,13 +28,13 @@ public class workoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
         workoutHelper=new WorkoutsDbHelper(this);
         setTitle("Workout");
-        /*Uncomment this block to test getWorkout
+        //Uncomment this block to test getWorkout
         ArrayList<Workout> temp = getWorkouts();
         for (int i=0; i < temp.size(); i++)
         {
             Log.d("TList date", String.valueOf(temp.get(i).getDate()));
             Log.d("Tlist duration", String.valueOf(temp.get(i).getDuration()));
-        }**/
+        }
     }
 
     public void onClickCard(View v)
@@ -47,21 +47,25 @@ public class workoutActivity extends AppCompatActivity {
     {
         ArrayList<Workout> workoutList=new ArrayList<>();
         SQLiteDatabase db=workoutHelper.getReadableDatabase();
-        Cursor cursor=db.query(DaysContract.DayEntry.TABLE2, new String[]{DaysContract.DayEntry._ID, DaysContract.DayEntry.COL_WORKOUT_TIME, DaysContract.DayEntry.COL_WORKOUT_NAME, DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_WORKOUT_DURATION, DaysContract.DayEntry.COL_WORKOUT_DISTANCE}, null, null, null, null, null);
-        while (cursor.moveToNext())
+        Cursor cursor=db.query(DaysContract.DayEntry.TABLE2, new String[]{DaysContract.DayEntry.COL_WORKOUT_TIME, DaysContract.DayEntry.COL_WORKOUT_NAME, DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_WORKOUT_DURATION, DaysContract.DayEntry.COL_WORKOUT_DISTANCE}, null, null, null, null, null);
+        if(cursor.moveToFirst())
         {
-            int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_TIME);
-            String time=cursor.getString(idx);
-            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_NAME);
-            String name=cursor.getString(idx);
-            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_DATE);
-            String date=cursor.getString(idx);
-            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DURATION);
-            String duration=cursor.getString(idx);
-            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DISTANCE);
-            float distance=cursor.getFloat(idx);
-            workoutList.add(new Workout(time, name, date, duration, distance));
+            while (cursor.moveToNext())
+            {
+                int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_TIME);
+                String time=cursor.getString(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_NAME);
+                String name=cursor.getString(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_DATE);
+                String date=cursor.getString(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DURATION);
+                String duration=cursor.getString(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DISTANCE);
+                float distance=cursor.getFloat(idx);
+                workoutList.add(new Workout(time, name, date, duration, distance));
+            }
         }
+
         return workoutList;
     }
 }
