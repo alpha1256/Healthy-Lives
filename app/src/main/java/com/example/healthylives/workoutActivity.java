@@ -13,9 +13,12 @@ import com.example.healthylives.Adapter.Workout;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
 import com.example.healthylives.Database.WorkoutsDbHelper;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class workoutActivity extends AppCompatActivity {
@@ -30,11 +33,26 @@ public class workoutActivity extends AppCompatActivity {
         setTitle("Workout");
         //Uncomment this block to test getWorkout
         ArrayList<Workout> temp = getWorkouts();
+        ArrayList <Integer> duration = new ArrayList<Integer>();
+        ArrayList <Integer> distance = new ArrayList<Integer>();
         for (int i=0; i < temp.size(); i++)
         {
             Log.d("TList date", String.valueOf(temp.get(i).getDate()));
             Log.d("Tlist duration", String.valueOf(temp.get(i).getDuration()));
+            duration.add(Integer.parseInt(temp.get(i).getDuration()));
+            distance.add(Math.round(temp.get(i).getDistance()));
         }
+
+        final GraphView graph = findViewById(R.id.graphVisual);
+        graph.setVisibility(View.VISIBLE);
+
+        DataPoint [] dataPoints = new DataPoint[duration.size()];
+        for (int i =0; i < duration.size(); i++)
+        {
+            dataPoints[i] = new DataPoint(duration.get(i), distance.get(i));
+        }
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
+        graph.addSeries(series);
     }
 
     public void onClickCard(View v)
@@ -68,6 +86,8 @@ public class workoutActivity extends AppCompatActivity {
 
         return workoutList;
     }
+
+
 }
 
 
