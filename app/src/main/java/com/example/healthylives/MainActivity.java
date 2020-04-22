@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (activeMin > 0)
             editor.putInt(ACTIVE,activeMin);
         editor.commit();
+        unregisterReceiver(receiveSleep);
         //Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
     }
 
