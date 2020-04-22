@@ -24,6 +24,8 @@ import java.util.List;
 public class workoutActivity extends AppCompatActivity {
 
     public static WorkoutsDbHelper workoutHelper;
+    private ArrayList <Integer> duration = new ArrayList<Integer>();
+    private ArrayList <Integer> distance = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,7 @@ public class workoutActivity extends AppCompatActivity {
         setTitle("Workout");
         //Uncomment this block to test getWorkout
         ArrayList<Workout> temp = getWorkouts();
-        ArrayList <Integer> duration = new ArrayList<Integer>();
-        ArrayList <Integer> distance = new ArrayList<Integer>();
+
         for (int i=0; i < temp.size(); i++)
         {
             Log.d("TList date", String.valueOf(temp.get(i).getDate()));
@@ -43,21 +44,19 @@ public class workoutActivity extends AppCompatActivity {
             distance.add(Math.round(temp.get(i).getDistance()));
         }
 
-        final GraphView graph = findViewById(R.id.graphVisual);
-        graph.setVisibility(View.VISIBLE);
-
-        DataPoint [] dataPoints = new DataPoint[duration.size()];
-        for (int i =0; i < duration.size(); i++)
-        {
-            dataPoints[i] = new DataPoint(duration.get(i), distance.get(i));
-        }
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(dataPoints);
-        graph.addSeries(series);
     }
 
     public void onClickCard(View v)
     {
         Intent intent = new Intent(this,logCardioActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickVisual(View v)
+    {
+        Intent intent = new Intent(this, visual_workoutActivity.class);
+        intent.putExtra("DURATION", duration);
+        intent.putExtra("DISTANCE", distance);
         startActivity(intent);
     }
 
