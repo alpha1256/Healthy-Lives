@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onPause()
     {
         super.onPause();
+        registerReceiver();
         SharedPreferences sp = getSharedPreferences("Localdata", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt(STEPS,steps);
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onResume()
     {
         super.onResume();
+
         SharedPreferences sp = getSharedPreferences("Localdata", Context.MODE_PRIVATE);
         if (sp.getInt(STEPS,0) == NULL)
         {
