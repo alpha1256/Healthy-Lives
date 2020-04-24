@@ -13,14 +13,19 @@ import com.example.healthylives.Adapter.Workout;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
 import com.example.healthylives.Database.WorkoutsDbHelper;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class workoutActivity extends AppCompatActivity {
 
     public static WorkoutsDbHelper workoutHelper;
+    private ArrayList <Integer> duration = new ArrayList<Integer>();
+    private ArrayList <Integer> distance = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +35,28 @@ public class workoutActivity extends AppCompatActivity {
         setTitle("Workout");
         //Uncomment this block to test getWorkout
         ArrayList<Workout> temp = getWorkouts();
+
         for (int i=0; i < temp.size(); i++)
         {
             Log.d("TList date", String.valueOf(temp.get(i).getDate()));
             Log.d("Tlist duration", String.valueOf(temp.get(i).getDuration()));
+            duration.add(Integer.parseInt(temp.get(i).getDuration()));
+            distance.add(Math.round(temp.get(i).getDistance()));
         }
+
     }
 
     public void onClickCard(View v)
     {
         Intent intent = new Intent(this,logCardioActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickVisual(View v)
+    {
+        Intent intent = new Intent(this, visual_workoutActivity.class);
+        intent.putExtra("DURATION", duration);
+        intent.putExtra("DISTANCE", distance);
         startActivity(intent);
     }
 
@@ -68,6 +85,8 @@ public class workoutActivity extends AppCompatActivity {
 
         return workoutList;
     }
+
+
 }
 
 
