@@ -234,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         intent.putExtra(WATER, waterCount);
         intent.putExtra(ACTIVE, activeMin);
         intent.putExtra(STEPS, steps);
+        intent.putExtra("DATE", date);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         Calendar calendar = Calendar.getInstance();

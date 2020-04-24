@@ -25,62 +25,19 @@ public class SendDataToDB extends IntentService {
         super("SendDataToDB");
     }
 
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-
-
-    public static void startActionFoo(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, SendDataToDB.class);
-        intent.setAction(ACTION_FOO);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
-    }*/
-
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-
-
-    public static void startActionBaz(Context context, String param1, String param2) {
-        Intent intent = new Intent(context, SendDataToDB.class);
-        intent.setAction(ACTION_BAZ);
-        intent.putExtra(EXTRA_PARAM1, param1);
-        intent.putExtra(EXTRA_PARAM2, param2);
-        context.startService(intent);
-    }*/
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             intent.getAction();
-            String steps = intent.getStringExtra(MainActivity.STEPS);
-            String water = intent.getStringExtra(MainActivity.WATER);
+            int steps = Integer.parseInt(intent.getStringExtra(MainActivity.STEPS));
+            int water = Integer.parseInt(intent.getStringExtra(MainActivity.WATER));
             String sleep = intent.getStringExtra(MainActivity.SLEEP);
-            String active = intent.getStringExtra(MainActivity.ACTIVE);
-            //TODO send all of this data to the database
+            int active = Integer.parseInt(intent.getStringExtra(MainActivity.ACTIVE));
+            String date = intent.getStringExtra("DATE");
+            //TODO add database here
             
         }
     }
 
-    /**
-     * Handle action Foo in the provided background thread with the provided
-     * parameters.
-
-    private void handleActionFoo(String param1, String param2) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-
-     * Handle action Baz in the provided background thread with the provided
-     * parameters.
-
-    private void handleActionBaz(String param1, String param2) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }**/
 }
