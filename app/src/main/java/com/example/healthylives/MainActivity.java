@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
   
     private SensorManager mSensormanager;
     private Sensor mSensor;
-    private DaysDbHelper mHelper;
+    public static DaysDbHelper mHelper;
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
     public final static String STEPS = "Steps for today";
