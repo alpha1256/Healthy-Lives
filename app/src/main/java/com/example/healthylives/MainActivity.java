@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.healthylives.Adapter.Day;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
 import com.example.healthylives.Services.SendDataToDB;
@@ -36,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -292,4 +295,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     //TODO add method to retrieve this data from the database
+    public ArrayList<Day> getWorkouts()
+    {
+        ArrayList<Day> dayList=new ArrayList<>();
+        SQLiteDatabase db=mHelper.getReadableDatabase();
+        Cursor cursor=db.query(DaysContract.DayEntry.TABLE1, new String[]{DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_DAY_STEP, DaysContract.DayEntry.COL_DAY_MIN, DaysContract.DayEntry.COL_DAY_CUP, DaysContract.DayEntry.COL_DAY_SLEEP}, null, null, null, null, null);
+        if(cursor.moveToFirst())
+        {
+            while (cursor.moveToNext())
+            {
+                int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_DATE);
+                String tempDate=cursor.getString(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_STEP);
+                int tempStep=cursor.getInt(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_MIN);
+                String tempMin=cursor.getString(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_CUP);
+                int tempCup=cursor.getInt(idx);
+                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_SLEEP);
+                String tempSleep=cursor.getString(idx);
+                dayList.add(new Day(tempDate, tempStep, tempMin, tempCup, tempSleep));
+            }
+        }
+
+        return dayList;
+    }
 }
