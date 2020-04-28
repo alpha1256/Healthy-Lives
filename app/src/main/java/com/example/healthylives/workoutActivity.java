@@ -13,9 +13,7 @@ import com.example.healthylives.Adapter.Workout;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
 import com.example.healthylives.Database.WorkoutsDbHelper;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+
 
 import java.util.ArrayList;
 import java.util.List;
