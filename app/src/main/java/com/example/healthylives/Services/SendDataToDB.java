@@ -59,12 +59,6 @@ public class SendDataToDB extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             intent.getAction();
-            String steps = intent.getStringExtra(MainActivity.STEPS);
-            String water = intent.getStringExtra(MainActivity.WATER);
-            String sleep = intent.getStringExtra(MainActivity.SLEEP);
-            String active = intent.getStringExtra(MainActivity.ACTIVE);
-            //TODO send all of this data to the database
-
         }
     }
 
