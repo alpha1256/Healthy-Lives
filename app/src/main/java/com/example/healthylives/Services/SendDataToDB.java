@@ -59,6 +59,22 @@ public class SendDataToDB extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             intent.getAction();
+            int steps = Integer.parseInt(intent.getStringExtra(MainActivity.STEPS));
+            int waterCount = Integer.parseInt(intent.getStringExtra(MainActivity.WATER));
+            String sleepMin = intent.getStringExtra(MainActivity.SLEEP);
+            int activeMin = Integer.parseInt(intent.getStringExtra(MainActivity.ACTIVE));
+            String date = intent.getStringExtra("DATE");
+            //TODO add database here
+
+            SQLiteDatabase db=mHelper.getWritableDatabase();
+            ContentValues values=new ContentValues();
+            values.put(DaysContract.DayEntry.COL_DAY_DATE, date);
+            values.put(DaysContract.DayEntry.COL_DAY_STEP, steps);
+            values.put(DaysContract.DayEntry.COL_DAY_MIN, activeMin);
+            values.put(DaysContract.DayEntry.COL_DAY_CUP, waterCount);
+            values.put(DaysContract.DayEntry.COL_DAY_SLEEP, sleepMin);
+            db.insertWithOnConflict(DaysContract.DayEntry.TABLE1, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            db.close();
         }
     }
 
