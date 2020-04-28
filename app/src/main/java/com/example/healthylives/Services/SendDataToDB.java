@@ -65,7 +65,6 @@ public class SendDataToDB extends IntentService {
             int activeMin = Integer.parseInt(intent.getStringExtra(MainActivity.ACTIVE));
             String date = intent.getStringExtra("DATE");
             //TODO add database here
-
             SQLiteDatabase db=mHelper.getWritableDatabase();
             ContentValues values=new ContentValues();
             values.put(DaysContract.DayEntry.COL_DAY_DATE, date);
@@ -75,6 +74,7 @@ public class SendDataToDB extends IntentService {
             values.put(DaysContract.DayEntry.COL_DAY_SLEEP, sleepMin);
             db.insertWithOnConflict(DaysContract.DayEntry.TABLE1, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             db.close();
+
         }
     }
 
