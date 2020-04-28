@@ -50,8 +50,6 @@ public class SendDataToDB extends IntentService {
             values.put(DaysContract.DayEntry.COL_DAY_SLEEP, sleepMin);
             db.insertWithOnConflict(DaysContract.DayEntry.TABLE1, null, values, SQLiteDatabase.CONFLICT_REPLACE);
             db.close();
-
         }
     }
-
 }
