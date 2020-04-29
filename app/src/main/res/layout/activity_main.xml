@@ -104,5 +104,12 @@
                 android:onClick="onClickAdd"
                 android:text="@string/addWater" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/recordData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickRecord"
+            android:text="Record Data" />
     </LinearLayout>
 </RelativeLayout>

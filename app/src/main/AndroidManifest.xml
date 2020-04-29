@@ -18,6 +18,7 @@
         <service
             android:name=".Services.SendDataToDB"
             android:exported="false" />
+        <receiver android:name=".Services.SendDataDB"/>
 
         <activity
             android:name=".viewPlanActivity"
