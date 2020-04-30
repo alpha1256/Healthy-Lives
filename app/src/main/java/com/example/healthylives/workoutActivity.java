@@ -37,7 +37,7 @@ public class workoutActivity extends AppCompatActivity {
             for (int i = 0; i < temp.size(); i++) {
                 //Log.d("TList date", String.valueOf(temp.get(i).getDate()));
                 //Log.d("Tlist duration", String.valueOf(temp.get(i).getDuration()));
-                durationList.add(Integer.parseInt(temp.get(i).getDuration()));
+                durationList.add(new Integer(Integer.parseInt(temp.get(i).getDuration())));
                 distanceList.add(Math.round(temp.get(i).getDistance()));
             }
         }
