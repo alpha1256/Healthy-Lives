@@ -111,5 +111,11 @@
             android:layout_height="wrap_content"
             android:onClick="onClickRecord"
             android:text="Record Data" />
+
+        <Button
+            android:id="@+id/viewAllData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View All Data" />
     </LinearLayout>
 </RelativeLayout>

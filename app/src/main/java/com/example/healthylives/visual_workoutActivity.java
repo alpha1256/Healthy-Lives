@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,6 +40,11 @@ public class visual_workoutActivity extends AppCompatActivity {
 
         Line line = new Line(yAxisValues).setColor(Color.parseColor("#FFD300"));
         Toast.makeText(this, String.valueOf(distance.size()), Toast.LENGTH_SHORT).show();
+        for (int i=0; i < distance.size(); i++)
+        {
+            Log.d("Distance", String.valueOf(distance.get(i)));
+            Log.d("Duration", String.valueOf(duration.get(i)));
+        }
 
         for (int i = 0; i < duration.size(); i++)
         {
