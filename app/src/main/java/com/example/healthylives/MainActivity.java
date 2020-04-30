@@ -290,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         counterSteps =0;
         activeMin=0;
         sleepMin="00:00";
+        recreate();
     }
 
     public void getDate()
