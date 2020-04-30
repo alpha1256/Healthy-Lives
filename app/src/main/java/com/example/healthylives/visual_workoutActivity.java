@@ -77,8 +77,21 @@ public class visual_workoutActivity extends AppCompatActivity {
         axis.setName("Duration in Minutes");
 
         Viewport viewport= new Viewport(lineChartView.getMaximumViewport());
-        viewport.top =15;
+        viewport.top =getMax(distance);
         lineChartView.setMaximumViewport(viewport);
         lineChartView.setCurrentViewport(viewport);
+    }
+
+    int getMax(ArrayList <Integer> temp)
+    {
+        int max=0;
+        for (int i=0; i < temp.size(); i++)
+        {
+            if (temp.get(i) > max)
+            {
+                max = temp.get(i);
+            }
+        }
+        return max;
     }
 }
