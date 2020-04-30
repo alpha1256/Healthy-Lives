@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".visual_workoutActivity"
-            android:parentActivityName=".workoutActivity"></activity>
+        <activity android:name=".view_AllDataActivity"></activity>
+        <activity
+            android:name=".visual_workoutActivity"
+            android:parentActivityName=".workoutActivity" />
 
         <service
             android:name=".Services.sendNotif"
@@ -18,7 +20,8 @@
         <service
             android:name=".Services.SendDataToDB"
             android:exported="false" />
-        <receiver android:name=".Services.SendDataDB"/>
+
+        <receiver android:name=".Services.SendDataDB" />
 
         <activity
             android:name=".viewPlanActivity"
