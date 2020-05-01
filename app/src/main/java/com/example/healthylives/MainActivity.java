@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         values.put(DaysContract.DayEntry.COL_DAY_MIN, activeMin);
         values.put(DaysContract.DayEntry.COL_DAY_CUP, waterCount);
         values.put(DaysContract.DayEntry.COL_DAY_SLEEP, sleepMin);
-        db.insertWithOnConflict(DaysContract.DayEntry.TABLE1, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.insert(DaysContract.DayEntry.TABLE1, null, values);
         db.close();
         Toast.makeText(this,"Sent To DB", Toast.LENGTH_SHORT).show();
         getDate();

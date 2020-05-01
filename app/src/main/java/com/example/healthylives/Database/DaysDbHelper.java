@@ -15,7 +15,7 @@ public class DaysDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTable="CREATE TABLE "+DaysContract.DayEntry.TABLE1 + "(" + DaysContract.DayEntry.COL_DAY_DATE + " TEXT NOT NULL PRIMARY KEY, " + DaysContract.DayEntry.COL_DAY_STEP + " INTEGER, " + DaysContract.DayEntry.COL_DAY_MIN + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_DAY_CUP + " INTEGER, " + DaysContract.DayEntry.COL_DAY_SLEEP + " TEXT NOT NULL);";
+        String createTable="CREATE TABLE "+DaysContract.DayEntry.TABLE1 + "(" + DaysContract.DayEntry.COL_DAY_DATE + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_DAY_STEP + " INTEGER, " + DaysContract.DayEntry.COL_DAY_MIN + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_DAY_CUP + " INTEGER, " + DaysContract.DayEntry.COL_DAY_SLEEP + " TEXT NOT NULL);";
         db.execSQL(createTable);
     }
 
