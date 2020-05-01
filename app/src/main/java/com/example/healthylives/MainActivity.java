@@ -132,6 +132,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         water.setText(String.valueOf(waterCount));
     }
 
+    public void onClickViewAll(View v)
+    {
+        Intent intent = new Intent(this, view_AllDataActivity.class);
+        startActivity(intent);
+    }
+
     public void onClickSubtract(View v)
     {
         TextView water = (TextView) findViewById(R.id.waterCounter);
@@ -323,30 +329,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    //TODO add method to retrieve this data from the database
-    public ArrayList<Day> getWorkouts()
-    {
-        ArrayList<Day> dayList=new ArrayList<>();
-        SQLiteDatabase db=mHelper.getReadableDatabase();
-        Cursor cursor=db.query(DaysContract.DayEntry.TABLE1, new String[]{DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_DAY_STEP, DaysContract.DayEntry.COL_DAY_MIN, DaysContract.DayEntry.COL_DAY_CUP, DaysContract.DayEntry.COL_DAY_SLEEP}, null, null, null, null, null);
-        if(cursor.moveToFirst())
-        {
-            while (cursor.moveToNext())
-            {
-                int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_DATE);
-                String tempDate=cursor.getString(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_STEP);
-                int tempStep=cursor.getInt(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_MIN);
-                String tempMin=cursor.getString(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_CUP);
-                int tempCup=cursor.getInt(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_SLEEP);
-                String tempSleep=cursor.getString(idx);
-                dayList.add(new Day(tempDate, tempStep, tempMin, tempCup, tempSleep));
-            }
-        }
 
-        return dayList;
-    }
 }

@@ -116,6 +116,7 @@
             android:id="@+id/viewAllData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickViewAll"
             android:text="View All Data" />
     </LinearLayout>
 </RelativeLayout>

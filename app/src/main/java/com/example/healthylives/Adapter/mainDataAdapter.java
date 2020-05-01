@@ -12,7 +12,7 @@ import com.example.healthylives.R;
 import java.util.List;
 
 public class mainDataAdapter extends RecyclerView.Adapter<mainDataAdapter.Viewholder> {
-    private List <mainData> allDatalist;
+    private List <Day> allDatalist;
 
     public class Viewholder extends RecyclerView.ViewHolder
     {
@@ -29,7 +29,7 @@ public class mainDataAdapter extends RecyclerView.Adapter<mainDataAdapter.Viewho
         }
     }
 
-    public mainDataAdapter(List <mainData> tlist){allDatalist = tlist;}
+    public mainDataAdapter(List <Day> tlist){allDatalist = tlist;}
 
     @Override
     public Viewholder onCreateViewHolder(ViewGroup parent, int viewtype)
@@ -41,11 +41,11 @@ public class mainDataAdapter extends RecyclerView.Adapter<mainDataAdapter.Viewho
     @Override
     public void onBindViewHolder (Viewholder holder, int position)
     {
-        mainData temp = allDatalist.get(position);
+        Day temp = allDatalist.get(position);
         holder.Date.setText(temp.getDate());
-        holder.activeMin.setText("You were active for" + temp.getActiveMin());
+        holder.activeMin.setText("You were active for" + temp.getMin());
         holder.Steps.setText("Steps: " + temp.getSteps());
-        holder.waterCount.setText("You had " + temp.getWaterCount() + " cups of water");
+        holder.waterCount.setText("You had " + temp.getCups() + " cups of water");
         holder.Sleep.setText("You were asleep for "+ temp.getSleep() + " minutes");
     }
 
