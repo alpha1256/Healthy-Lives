@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.healthylives.R;
 
 public class profileSettingActivity extends AppCompatActivity {
-    private  String userName = "";
-    private String userHeight = "";
-    private String userWeight = "";
+    private  String userName = new String();
+    private String userHeight = new String();
+    private String userWeight = new String();
     public static final String NAME = "User name";
     public static final String HEIGHT = "User height";
     public static final String WEIGHT = "User weight";
@@ -26,6 +27,7 @@ public class profileSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_setting);
         setTitle("Profile Settings");
         updateView();
+        Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
     }
 
     public void updateView()

@@ -7,4 +7,5 @@
     <string name="step">Steps:</string>
     <string name="active">Active minutes:</string>
     <string name="set">Settings</string>
+    <string name="hintSign">Enter your password then use Login to login or Sign Up to create account (use valid email or longer password)</string>
 </resources>
