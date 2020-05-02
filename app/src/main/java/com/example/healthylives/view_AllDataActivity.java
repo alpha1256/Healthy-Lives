@@ -72,7 +72,6 @@ public class view_AllDataActivity extends AppCompatActivity {
                 dayList.add(new Day(tempDate, tempStep, tempMin, tempCup, tempSleep));
             }
         }
-
         return dayList;
     }
 }
