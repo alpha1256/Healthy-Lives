@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 public class DaysContract {
     public static final String DB_NAME="com.example.healthylives.db";
-    public static final int DB_VERSION=4;
+    public static final int DB_VERSION=5;
 
     public class DayEntry implements BaseColumns
     {
