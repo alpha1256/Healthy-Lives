@@ -34,4 +34,6 @@ public class socialActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //Todo this page will display all the users (We might need a login page if we are doing user profiles So this page could be used as the login page instead)
 }
