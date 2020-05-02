@@ -15,7 +15,7 @@ public class WorkoutsDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTable="CREATE TABLE "+DaysContract.DayEntry.TABLE2 + "(" + DaysContract.DayEntry.COL_WORKOUT_TIME + " TEXT NOT NULL PRIMARY KEY, " + DaysContract.DayEntry.COL_WORKOUT_NAME + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_DAY_DATE + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_WORKOUT_DURATION + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_WORKOUT_DISTANCE + " FLOAT);";
+        String createTable="CREATE TABLE "+DaysContract.DayEntry.TABLE2 + "(" + DaysContract.DayEntry.COL_WORKOUT_TIME + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_WORKOUT_NAME + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_DAY_DATE + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_WORKOUT_DURATION + " TEXT NOT NULL, " + DaysContract.DayEntry.COL_WORKOUT_DISTANCE + " FLOAT);";
         db.execSQL(createTable);
     }
 
