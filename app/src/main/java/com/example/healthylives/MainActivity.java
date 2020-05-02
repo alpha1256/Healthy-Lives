@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.healthylives.Adapter.Day;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.DaysDbHelper;
+import com.example.healthylives.Services.SendDataDB;
 import com.example.healthylives.Services.SendDataToDB;
 
 import java.io.BufferedReader;
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensormanager.registerListener(this, mSensor,SensorManager.SENSOR_DELAY_NORMAL);
         mHelper=new DaysDbHelper(this);
         getDate();
-        onTwentyFour();
+        //onTwentyFour();
         registerReceiver();
     }
 
@@ -129,6 +130,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         TextView water = (TextView) findViewById(R.id.waterCounter);
         waterCount = waterCount +1;
         water.setText(String.valueOf(waterCount));
+    }
+
+    public void onClickViewAll(View v)
+    {
+        Intent intent = new Intent(this, view_AllDataActivity.class);
+        startActivity(intent);
     }
 
     public void onClickSubtract(View v)
@@ -184,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             editor.putInt(ACTIVE,activeMin);
         editor.commit();
         unregisterReceiver(receiveSleep);
+        //unregisterReceiver(SendDataDB.class);
         //Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
     }
 
@@ -232,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onTwentyFour()
     {
         alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, SendDataToDB.class);
+        Intent intent = new Intent(this, SendDataDB.class);
         intent.putExtra(SLEEP, sleepMin);
         intent.putExtra(WATER, waterCount);
         intent.putExtra(ACTIVE, activeMin);
@@ -242,12 +250,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 24);
-        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 48);
+
 
 
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, alarmIntent);
+        Toast.makeText(this, "Alarm", Toast.LENGTH_SHORT).show();
         //TODO move the db to SendDataToDB.java in services
         /**SQLiteDatabase db=mHelper.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -265,7 +275,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         counterSteps =0;
         activeMin=0;
         sleepMin="00:00";
-        stopService(new Intent(this,SendDataToDB.class));
+        //stopService(new Intent(this,SendDataToDB.class));
+    }
+
+    public void onClickRecord(View v)
+    {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DaysContract.DayEntry.COL_DAY_DATE, date);
+        values.put(DaysContract.DayEntry.COL_DAY_STEP, steps);
+        values.put(DaysContract.DayEntry.COL_DAY_MIN, activeMin);
+        values.put(DaysContract.DayEntry.COL_DAY_CUP, waterCount);
+        values.put(DaysContract.DayEntry.COL_DAY_SLEEP, sleepMin);
+        db.insert(DaysContract.DayEntry.TABLE1, null, values);
+        db.close();
+        Toast.makeText(this,"Sent To DB", Toast.LENGTH_SHORT).show();
+        getDate();
+        waterCount =0;
+        steps =0;
+        counterSteps =0;
+        activeMin=0;
+        sleepMin="00:00";
+        recreate();
     }
 
     public void getDate()
@@ -298,30 +329,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    //TODO add method to retrieve this data from the database
-    public ArrayList<Day> getWorkouts()
-    {
-        ArrayList<Day> dayList=new ArrayList<>();
-        SQLiteDatabase db=mHelper.getReadableDatabase();
-        Cursor cursor=db.query(DaysContract.DayEntry.TABLE1, new String[]{DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_DAY_STEP, DaysContract.DayEntry.COL_DAY_MIN, DaysContract.DayEntry.COL_DAY_CUP, DaysContract.DayEntry.COL_DAY_SLEEP}, null, null, null, null, null);
-        if(cursor.moveToFirst())
-        {
-            while (cursor.moveToNext())
-            {
-                int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_DATE);
-                String tempDate=cursor.getString(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_STEP);
-                int tempStep=cursor.getInt(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_MIN);
-                String tempMin=cursor.getString(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_CUP);
-                int tempCup=cursor.getInt(idx);
-                idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_SLEEP);
-                String tempSleep=cursor.getString(idx);
-                dayList.add(new Day(tempDate, tempStep, tempMin, tempCup, tempSleep));
-            }
-        }
 
-        return dayList;
-    }
 }
