@@ -24,7 +24,7 @@ public class socialActivity extends AppCompatActivity {
     private EditText passwordInput;
 
     private Button login;
-    private FirebaseAuth authSign;
+    public FirebaseAuth authSign;
     private FirebaseAuth.AuthStateListener authListener;
 
     @Override
@@ -44,7 +44,10 @@ public class socialActivity extends AppCompatActivity {
                 if (firebaseAuth.getCurrentUser() != null)
                 {
                     //Todo after sign in go to next activity
-                    startActivity(new Intent(getApplicationContext(), profileSettingActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), profileSettingActivity.class);
+                    //FirebaseUser user = firebaseAuth.getCurrentUser();
+                    //intent.putExtra("Data", user);
+                    startActivity(intent);
                 }
             }
         };
@@ -116,7 +119,9 @@ public class socialActivity extends AppCompatActivity {
         FirebaseUser user = authSign.getCurrentUser();
         if (user != null)
         {
-            startActivity(new Intent(getApplicationContext(), profileSettingActivity.class));
+            Intent intent = new Intent(this, profileSettingActivity.class);
+            //intent.putExtra("Data", user);
+            startActivity(intent);
         }
     }
 

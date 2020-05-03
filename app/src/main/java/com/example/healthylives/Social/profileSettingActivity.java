@@ -1,8 +1,10 @@
 package com.example.healthylives.Social;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.healthylives.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class profileSettingActivity extends AppCompatActivity {
     private  String userName = new String();
@@ -19,6 +26,7 @@ public class profileSettingActivity extends AppCompatActivity {
     public static final String NAME = "User name";
     public static final String HEIGHT = "User height";
     public static final String WEIGHT = "User weight";
+    private FirebaseUser user;
 
 
     @Override
@@ -28,6 +36,7 @@ public class profileSettingActivity extends AppCompatActivity {
         setTitle("Profile Settings");
         updateView();
         Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
+        user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public void updateView()
@@ -51,6 +60,21 @@ public class profileSettingActivity extends AppCompatActivity {
         userHeight = String.valueOf(height.getText());
         userWeight = String.valueOf(weight.getText());
         updateView();
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName(userName).build();
+        user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>(){
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (task.isSuccessful())
+                {
+                    Toast.makeText(getApplicationContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+                } else
+                {
+                    Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
