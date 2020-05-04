@@ -7,6 +7,11 @@ public class Workout {
     private String duration;
     private float distance;
 
+    public Workout()
+    {
+        //required for Firebase usage
+    }
+
     public Workout(String t, String n, String da, String du, float di)
     {
         time=t;

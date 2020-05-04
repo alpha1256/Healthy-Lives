@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,12 +16,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.healthylives.Adapter.Workout;
+import com.example.healthylives.Database.DaysContract;
+import com.example.healthylives.Database.WorkoutsDbHelper;
 import com.example.healthylives.R;
+import com.example.healthylives.workoutActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class profileSettingActivity extends AppCompatActivity {
     private  String userName = new String();
@@ -29,6 +40,9 @@ public class profileSettingActivity extends AppCompatActivity {
     public static final String HEIGHT = "User height";
     public static final String WEIGHT = "User weight";
     private FirebaseUser user;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseReference;
+    private WorkoutsDbHelper mHelper;
 
 
     @Override
@@ -39,6 +53,9 @@ public class profileSettingActivity extends AppCompatActivity {
         updateView();
         Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference=mDatabase.getReference();
+        mHelper=new WorkoutsDbHelper(this);
     }
 
 
@@ -123,6 +140,27 @@ public class profileSettingActivity extends AppCompatActivity {
         updateView();
     }
 
-    //TODO send data from database to firebase
+    public void sendDataToFirebase()
+    {
+        List<Workout> workoutList=new ArrayList<>();
+        SQLiteDatabase db=mHelper.getReadableDatabase();
+        Cursor cursor=db.query(DaysContract.DayEntry.TABLE2, new String[]{DaysContract.DayEntry._ID, DaysContract.DayEntry.COL_WORKOUT_TIME, DaysContract.DayEntry.COL_WORKOUT_NAME, DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_WORKOUT_DURATION, DaysContract.DayEntry.COL_WORKOUT_DISTANCE}, null, null, null, null, null);
+        while (cursor.moveToNext())
+        {
+            int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_TIME);
+            String time=cursor.getString(idx);
+            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_NAME);
+            String name=cursor.getString(idx);
+            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_DAY_DATE);
+            String date=cursor.getString(idx);
+            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DURATION);
+            String duration=cursor.getString(idx);
+            idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DISTANCE);
+            float distance=cursor.getFloat(idx);
+            workoutList.add(new Workout(time, name, date, duration, distance));
+        }
+        mDatabaseReference=mDatabase.getReference().child("workouts");
+        mDatabaseReference.setValue(workoutList);
+    }
 
 }
