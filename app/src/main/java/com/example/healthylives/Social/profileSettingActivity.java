@@ -123,12 +123,6 @@ public class profileSettingActivity extends AppCompatActivity {
         updateView();
     }
 
-    //TODO click database also
-    public void onclickReset(View v)
-    {
-        userName = "";
-        userHeight = "";
-        userWeight="";
-        updateView();
-    }
+    //TODO send data from database to firebase 
+
 }
