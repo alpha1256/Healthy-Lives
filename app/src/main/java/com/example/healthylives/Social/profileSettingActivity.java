@@ -123,6 +123,6 @@ public class profileSettingActivity extends AppCompatActivity {
         updateView();
     }
 
-    //TODO send data from database to firebase 
+    //TODO send data from database to firebase
 
 }

@@ -14,4 +14,6 @@ public class friends_listActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends_list);
         setTitle("All Users");
     }
+
+    //TODO this page should display all users and each user should be clickable. That then takes you to a page to view that users stats
 }
