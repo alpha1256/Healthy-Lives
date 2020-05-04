@@ -145,6 +145,10 @@ public class profileSettingActivity extends AppCompatActivity {
         List<Workout> workoutList=new ArrayList<>();
         SQLiteDatabase db=mHelper.getReadableDatabase();
         Cursor cursor=db.query(DaysContract.DayEntry.TABLE2, new String[]{DaysContract.DayEntry._ID, DaysContract.DayEntry.COL_WORKOUT_TIME, DaysContract.DayEntry.COL_WORKOUT_NAME, DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_WORKOUT_DURATION, DaysContract.DayEntry.COL_WORKOUT_DISTANCE}, null, null, null, null, null);
+        if(cursor.getCount()<1)
+        {
+            return;
+        }
         while (cursor.moveToNext())
         {
             int idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_TIME);
