@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,6 +40,28 @@ public class profileSettingActivity extends AppCompatActivity {
         Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
+
+
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+         getMenuInflater().inflate(R.menu.social_menu, menu);
+         return true;
+     }
+
+     @Override
+     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.setting)
+        {
+            Toast.makeText(this, "You are already on this page", Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.friend)
+        {
+            Intent intent = new Intent(this, friends_listActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+     }
 
     public void updateView()
     {

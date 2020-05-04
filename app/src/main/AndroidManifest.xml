@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Social.profileSettingActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".Social.friends_listActivity"
+            android:parentActivityName=".Social.profileSettingActivity"></activity>
+        <activity
+            android:name=".Social.profileSettingActivity"
+            android:parentActivityName=".MainActivity" />
 
         <service
             android:name=".Services.sendNotif"

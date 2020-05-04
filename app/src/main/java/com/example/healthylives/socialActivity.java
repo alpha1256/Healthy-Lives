@@ -55,24 +55,6 @@ public class socialActivity extends AppCompatActivity {
 
     }
 
-    /**
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.social_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.setting)
-        {
-            Intent intent = new Intent(this, profileSettingActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }**/
-
     public void onClickLogin(View v)
     {
         signIn();
