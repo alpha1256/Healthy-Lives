@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.healthylives.Adapter.Workout;
 import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.WorkoutsDbHelper;
+import com.example.healthylives.MainActivity;
 import com.example.healthylives.R;
 import com.example.healthylives.workoutActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -167,4 +168,10 @@ public class profileSettingActivity extends AppCompatActivity {
         mDatabaseReference.setValue(workoutList);
     }
 
+    public void onClickSignOut(View v)
+    {
+        FirebaseAuth authUser = FirebaseAuth.getInstance();
+        authUser.signOut();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
 }

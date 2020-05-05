@@ -71,15 +71,16 @@
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginLeft="172dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
         android:layout_marginTop="82dp"
         android:layout_marginBottom="312dp"
         android:onClick="onClickUpdate"
         android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heightEntry" />
+        app:layout_constraintTop_toBottomOf="@+id/heightEntry"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/heightView"
@@ -102,4 +103,20 @@
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/heightView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/signOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginBottom="312dp"
+        android:onClick="onClickSignOut"
+        android:text="Sign Out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toEndOf="@+id/updateButton"
+        app:layout_constraintTop_toBottomOf="@+id/heightEntry" />
 </androidx.constraintlayout.widget.ConstraintLayout>
