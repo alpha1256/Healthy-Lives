@@ -37,7 +37,7 @@ public class socialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
-        setTitle("Social");
+        setTitle("Login");
 
         mailInput = findViewById(R.id.email);
         passwordInput = findViewById(R.id.password);
