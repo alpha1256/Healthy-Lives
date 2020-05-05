@@ -12,12 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.healthylives.Social.Users;
 import com.example.healthylives.Social.profileSettingActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class socialActivity extends AppCompatActivity {
     private EditText mailInput;
@@ -26,6 +29,9 @@ public class socialActivity extends AppCompatActivity {
     private Button login;
     public FirebaseAuth authSign;
     private FirebaseAuth.AuthStateListener authListener;
+    private Users newUser;
+    private FirebaseDatabase database;
+    private DatabaseReference dataReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class socialActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.password);
         login = findViewById(R.id.loginButton);
         authSign = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        dataReference = database.getReference();
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -62,13 +70,17 @@ public class socialActivity extends AppCompatActivity {
 
     public void onClickSignup(View v)
     {
-        String email = mailInput.getText().toString();
+        final String email = mailInput.getText().toString();
         String password = passwordInput.getText().toString();
+
+        dataReference = database.getReference().child("Users");
         authSign.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
+                    newUser = new Users(email);
+                    dataReference.setValue(newUser);
                     Toast.makeText(getApplicationContext(), "Created Account", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "Not Successful hint password length", Toast.LENGTH_SHORT).show();
