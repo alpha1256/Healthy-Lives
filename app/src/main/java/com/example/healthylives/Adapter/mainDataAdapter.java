@@ -43,7 +43,7 @@ public class mainDataAdapter extends RecyclerView.Adapter<mainDataAdapter.Viewho
     {
         Day temp = allDatalist.get(position);
         holder.Date.setText(temp.getDate());
-        holder.activeMin.setText("You were active for" + temp.getMin());
+        holder.activeMin.setText("You were active for " + temp.getMin() + " minutes");
         holder.Steps.setText("Steps: " + temp.getSteps());
         holder.waterCount.setText("You had " + temp.getCups() + " cups of water");
         holder.Sleep.setText("You were asleep for "+ temp.getSleep() + " minutes");
