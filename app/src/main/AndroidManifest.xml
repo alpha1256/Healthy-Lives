@@ -9,19 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view_AllDataActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <service
+            android:name=".Services.WorkoutService"
+            android:exported="false"></service>
+
+        <activity
+            android:name=".view_AllDataActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".visual_workoutActivity"
             android:parentActivityName=".workoutActivity" />
-        <activity android:name=".Social.friendProfileActivity"
-            android:parentActivityName=".Social.friends_listActivity"></activity>
+        <activity
+            android:name=".Social.friendProfileActivity"
+            android:parentActivityName=".Social.friends_listActivity" />
         <activity
             android:name=".Social.friends_listActivity"
             android:parentActivityName=".Social.profileSettingActivity" />
         <activity
             android:name=".Social.profileSettingActivity"
             android:parentActivityName=".MainActivity" />
+
         <service
             android:name=".Services.sendNotif"
             android:exported="false" />

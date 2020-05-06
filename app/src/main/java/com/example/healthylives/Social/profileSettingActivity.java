@@ -21,6 +21,7 @@ import com.example.healthylives.Database.DaysContract;
 import com.example.healthylives.Database.WorkoutsDbHelper;
 import com.example.healthylives.MainActivity;
 import com.example.healthylives.R;
+import com.example.healthylives.Services.WorkoutService;
 import com.example.healthylives.workoutActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,7 +44,7 @@ public class profileSettingActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
-    private WorkoutsDbHelper mHelper;
+    //private WorkoutsDbHelper mHelper;
     private String email = new String ();
 
 
@@ -59,7 +60,7 @@ public class profileSettingActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference=mDatabase.getReference();
-        mHelper=new WorkoutsDbHelper(this);
+        //mHelper=new WorkoutsDbHelper(this);
     }
 
 
@@ -144,7 +145,7 @@ public class profileSettingActivity extends AppCompatActivity {
         updateView();
     }
 
-    public void sendDataToFirebase()
+    /*public void sendDataToFirebase()
     {
         List<Workout> workoutList=new ArrayList<>();
         SQLiteDatabase db=mHelper.getReadableDatabase();
@@ -169,7 +170,7 @@ public class profileSettingActivity extends AppCompatActivity {
         }
         mDatabaseReference=mDatabase.getReference().child("Users").child(email).child("workouts");
         mDatabaseReference.setValue(workoutList);
-    }
+    }*/
 
     public void onClickSignOut(View v)
     {
@@ -180,6 +181,10 @@ public class profileSettingActivity extends AppCompatActivity {
 
     public void onClickSendFire(View v)
     {
-        //sendDataToFirebase();
+        Intent intent=new Intent(this, WorkoutService.class);
+        String temp=email;
+        intent.putExtra("email", temp);
+        startService(intent);
+
     }
 }
