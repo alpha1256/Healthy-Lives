@@ -14,7 +14,13 @@
         <activity
             android:name=".visual_workoutActivity"
             android:parentActivityName=".workoutActivity" />
-
+        <activity android:name=".Social.friendProfileActivity"></activity>
+        <activity
+            android:name=".Social.friends_listActivity"
+            android:parentActivityName=".Social.profileSettingActivity" />
+        <activity
+            android:name=".Social.profileSettingActivity"
+            android:parentActivityName=".MainActivity" />
         <service
             android:name=".Services.sendNotif"
             android:exported="false" />
