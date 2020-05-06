@@ -3,10 +3,12 @@ package com.example.healthylives.Social;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -48,11 +50,12 @@ public class friends_listActivity extends AppCompatActivity {
                 mUserListView = (ListView) findViewById(R.id.userList);
                 mAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.user_list, users);
                 mUserListView.setAdapter(mAdapter);
-                mUserListView.setOnClickListener(new View.OnClickListener() {
+                mUserListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        //TODO get adapter position and send it to friendProfileActivity
-                        //mAdapter.getItem()
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //Intent intent = new Intent(getApplicationContext(), friendProfileActivity.class);
+                        //TODO get adapter position 
+                        //intent.putExtra("Name", mAdapter.getPosition());
                     }
                 });
             }
