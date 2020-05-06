@@ -19,7 +19,7 @@ import com.example.healthylives.Database.DaysDbHelper;
 import java.util.ArrayList;
 
 public class view_AllDataActivity extends AppCompatActivity {
-    public static DaysDbHelper mHelper;
+    //public static DaysDbHelper mHelper;
     private RecyclerView recycler;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -30,7 +30,7 @@ public class view_AllDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__all_data);
         setTitle("Your Data");
-        mHelper=new DaysDbHelper(this);
+        MainActivity.mHelper=new DaysDbHelper(this);
 
         if(getData() != null)
         {
@@ -53,7 +53,7 @@ public class view_AllDataActivity extends AppCompatActivity {
     public ArrayList<Day> getData()
     {
         ArrayList<Day> dayList=new ArrayList<>();
-        SQLiteDatabase db=mHelper.getReadableDatabase();
+        SQLiteDatabase db=MainActivity.mHelper.getReadableDatabase();
         Cursor cursor=db.query(DaysContract.DayEntry.TABLE1, new String[]{DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_DAY_STEP, DaysContract.DayEntry.COL_DAY_MIN, DaysContract.DayEntry.COL_DAY_CUP, DaysContract.DayEntry.COL_DAY_SLEEP}, null, null, null, null, null);
         if(cursor.moveToFirst())
         {
