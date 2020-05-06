@@ -44,6 +44,7 @@ public class profileSettingActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
     private WorkoutsDbHelper mHelper;
+    private String email = new String ();
 
 
     @Override
@@ -52,6 +53,8 @@ public class profileSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_setting);
         setTitle("Profile Settings");
         updateView();
+        Intent intent = getIntent();
+        email = intent.getStringExtra("Username");
         Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();

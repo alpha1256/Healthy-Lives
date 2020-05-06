@@ -32,6 +32,7 @@ public class socialActivity extends AppCompatActivity {
     private Users newUser;
     private FirebaseDatabase database;
     private DatabaseReference dataReference;
+    private String email = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class socialActivity extends AppCompatActivity {
                     //Todo after sign in go to next activity
                     Intent intent = new Intent(getApplicationContext(), profileSettingActivity.class);
                     //FirebaseUser user = firebaseAuth.getCurrentUser();
-                    //intent.putExtra("Data", user);
+                    intent.putExtra("Username", email);
                     startActivity(intent);
                 }
             }
@@ -70,7 +71,7 @@ public class socialActivity extends AppCompatActivity {
 
     public void onClickSignup(View v)
     {
-        final String email = mailInput.getText().toString();
+        email = mailInput.getText().toString();
         String password = passwordInput.getText().toString();
 
         dataReference = database.getReference().child("Users");
@@ -91,7 +92,7 @@ public class socialActivity extends AppCompatActivity {
 
     private void signIn()
     {
-        String email = mailInput.getText().toString();
+        email = mailInput.getText().toString();
         String password = passwordInput.getText().toString();
         authSign.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -114,7 +115,7 @@ public class socialActivity extends AppCompatActivity {
         if (user != null)
         {
             Intent intent = new Intent(this, profileSettingActivity.class);
-            //intent.putExtra("Data", user);
+            //intent.putExtra("Username", email);
             startActivity(intent);
         }
     }
