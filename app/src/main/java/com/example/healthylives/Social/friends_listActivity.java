@@ -48,6 +48,13 @@ public class friends_listActivity extends AppCompatActivity {
                 mUserListView = (ListView) findViewById(R.id.userList);
                 mAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.user_list, users);
                 mUserListView.setAdapter(mAdapter);
+                mUserListView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO get adapter position and send it to friendProfileActivity
+                        //mAdapter.getItem()
+                    }
+                });
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
