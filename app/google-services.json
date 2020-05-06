@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "893269393060",
+    "firebase_url": "https://healthy-lives-2eb48.firebaseio.com",
+    "project_id": "healthy-lives-2eb48",
+    "storage_bucket": "healthy-lives-2eb48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893269393060:android:1bfa4569cbf2b06a91f031",
+        "android_client_info": {
+          "package_name": "com.example.healthylives"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893269393060-mkboo7ugulaetkb4372mq7r33qn9vk54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr-Nfar4-SX6ZSBbUqMTQYalIFam8zh94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893269393060-mkboo7ugulaetkb4372mq7r33qn9vk54.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
