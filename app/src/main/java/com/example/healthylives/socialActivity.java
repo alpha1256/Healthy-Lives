@@ -81,7 +81,7 @@ public class socialActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     newUser = new Users(email);
-                    dataReference.child("names").push().setValue(newUser);
+                    dataReference.push().setValue(newUser);
                     Toast.makeText(getApplicationContext(), "Created Account", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "Not Successful hint password length", Toast.LENGTH_SHORT).show();

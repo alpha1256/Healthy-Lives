@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,7 @@ public class profileSettingActivity extends AppCompatActivity {
     public static final String NAME = "User name";
     public static final String HEIGHT = "User height";
     public static final String WEIGHT = "User weight";
+    public static final String EMAIL = "User name";
     private FirebaseUser user;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
@@ -52,14 +54,16 @@ public class profileSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setting);
         setTitle("Profile Settings");
-        updateView();
         Intent intent = getIntent();
-        email = intent.getStringExtra("Username");
+        if (getIntent() != null)
+            email = intent.getStringExtra("Username");
+        Log.d("EmailTag",email);
         Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference=mDatabase.getReference();
         mHelper=new WorkoutsDbHelper(this);
+        updateView();
     }
 
 
@@ -90,7 +94,7 @@ public class profileSettingActivity extends AppCompatActivity {
         TextView height = findViewById(R.id.heightView);
         TextView weight = findViewById(R.id.weightView);
 
-        name.setText(userName);
+        name.setText(email);
         height.setText(userHeight);
         weight.setText(userWeight);
     }
@@ -130,6 +134,7 @@ public class profileSettingActivity extends AppCompatActivity {
         editor.putString(NAME,userName);
         editor.putString(HEIGHT, userHeight);
         editor.putString(WEIGHT, userWeight);
+        editor.putString(EMAIL, email);
         editor.commit();
     }
 
@@ -141,6 +146,7 @@ public class profileSettingActivity extends AppCompatActivity {
         userWeight = sp.getString(WEIGHT,"");
         userHeight = sp.getString(HEIGHT, "1");
         userName = sp.getString(NAME, "2");
+        email = sp.getString(EMAIL, "3");
         updateView();
     }
 
@@ -167,7 +173,7 @@ public class profileSettingActivity extends AppCompatActivity {
             float distance=cursor.getFloat(idx);
             workoutList.add(new Workout(time, name, date, duration, distance));
         }
-        mDatabaseReference=mDatabase.getReference().child("Users").child("names").child("workouts");
+        mDatabaseReference=mDatabase.getReference().child("Users").child("workouts");
         mDatabaseReference.setValue(workoutList);
     }
 

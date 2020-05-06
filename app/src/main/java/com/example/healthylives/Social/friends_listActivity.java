@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class friends_listActivity extends AppCompatActivity {
 
@@ -30,13 +31,37 @@ public class friends_listActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
         setTitle("All Users");
-        mUserListView=(ListView) findViewById(R.id.userList);
-        ArrayList<String> temp = getUsers();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userRef = reference.child("Users");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> users = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //String name = ds.child("username").getValue(String.class);
+                    String ab = ds.getKey();
+                    String name = ds.child("username").getValue(String.class);
+
+                    //String name = String.valueOf(ds.getValue());
+                    users.add(name);
+                }
+                mUserListView = (ListView) findViewById(R.id.userList);
+                mAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.user_list, users);
+                mUserListView.setAdapter(mAdapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        userRef.addListenerForSingleValueEvent(eventListener);
     }
 
     //TODO this page should display all users and each user should be clickable. That then takes you to a page to view that users stats
     public void updateUI()
     {
+
+        /**
         ArrayList<String> userList=new ArrayList<>();
         ArrayList<String> users=getUsers();
         for(int c=0; c<users.size(); c++)
@@ -53,17 +78,17 @@ public class friends_listActivity extends AppCompatActivity {
             mAdapter.clear();
             mAdapter.addAll(userList);
             mAdapter.notifyDataSetChanged();
-        }
+        }**/
 
 
     }
 
-    //TODO write a method to get a list of users from the database
+    /**
     public ArrayList<String> getUsers()
     {
         final ArrayList<String> users=new ArrayList<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userRef = reference.child("Users").child("name");
+        DatabaseReference userRef = reference.child("Users");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -71,7 +96,8 @@ public class friends_listActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     //String name = ds.child("username").getValue(String.class);
-                    String name = ds.child("username").getValue().toString();
+                    String ab = ds.getKey();
+                    String name = ds.child("username").getValue(String.class);
 
                     //String name = String.valueOf(ds.getValue());
                     users.add(name);
@@ -89,9 +115,9 @@ public class friends_listActivity extends AppCompatActivity {
         /**for (int i = 0; i < users.size(); i++)
         {
             Log.d("AllName", users.get(i));
-        }**/
+        }
         return users;
-    }
+    }**/
 
     //TODO write a method to handle button click for each user
     public void onClickUser(View view) {
