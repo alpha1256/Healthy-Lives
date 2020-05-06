@@ -167,7 +167,7 @@ public class profileSettingActivity extends AppCompatActivity {
             float distance=cursor.getFloat(idx);
             workoutList.add(new Workout(time, name, date, duration, distance));
         }
-        mDatabaseReference=mDatabase.getReference().child("workouts");
+        mDatabaseReference=mDatabase.getReference().child("Users").child("names").child("workouts");
         mDatabaseReference.setValue(workoutList);
     }
 
