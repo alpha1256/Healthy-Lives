@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
@@ -34,6 +36,18 @@ public class visual_workoutActivity extends AppCompatActivity {
         ArrayList <Integer> duration = intent.getIntegerArrayListExtra("DURATION");
 
         LineChartView lineChartView = findViewById(R.id.chartView);
+
+        for (int i=0; i < duration.size(); i++)
+        {
+            for (int j=i+1; j < duration.size(); j++)
+            {
+                if (duration.get(i) > duration.get(j))
+                {
+                    Collections.swap(duration,i,j);
+                    Collections.swap(distance,i,j);
+                }
+            }
+        }
 
         List yAxisValues = new ArrayList();
         List xAxisValues = new ArrayList();
