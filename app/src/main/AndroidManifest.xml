@@ -14,7 +14,8 @@
         <activity
             android:name=".visual_workoutActivity"
             android:parentActivityName=".workoutActivity" />
-        <activity android:name=".Social.friendProfileActivity"></activity>
+        <activity android:name=".Social.friendProfileActivity"
+            android:parentActivityName=".Social.friends_listActivity"></activity>
         <activity
             android:name=".Social.friends_listActivity"
             android:parentActivityName=".Social.profileSettingActivity" />

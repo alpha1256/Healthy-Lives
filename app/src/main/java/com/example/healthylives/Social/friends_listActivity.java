@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.healthylives.R;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,9 +54,11 @@ public class friends_listActivity extends AppCompatActivity {
                 mUserListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //Intent intent = new Intent(getApplicationContext(), friendProfileActivity.class);
-                        //TODO get adapter position 
-                        //intent.putExtra("Name", mAdapter.getPosition());
+                        Intent intent = new Intent(getApplicationContext(), friendProfileActivity.class);
+                        //TODO get adapter position
+                        String temp = String.valueOf(parent.getItemAtPosition(position));
+                        intent.putExtra("Name", temp);
+                        startActivity(intent);
                     }
                 });
             }
