@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view_AllDataActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".visual_workoutActivity"
+            android:parentActivityName=".workoutActivity" />
         <activity android:name=".Social.friendProfileActivity"></activity>
         <activity
             android:name=".Social.friends_listActivity"
@@ -16,13 +21,14 @@
         <activity
             android:name=".Social.profileSettingActivity"
             android:parentActivityName=".MainActivity" />
-
         <service
             android:name=".Services.sendNotif"
             android:exported="false" />
         <service
             android:name=".Services.SendDataToDB"
             android:exported="false" />
+
+        <receiver android:name=".Services.SendDataDB" />
 
         <activity
             android:name=".viewPlanActivity"
