@@ -7,9 +7,13 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,6 +39,21 @@ public class logCardioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_cardio);
         setTitle("Add New Workout");
+        String [] itemSpinner = new String [] {"Swimming", "Jogging", "Cycling"};
+        Spinner spinnerOne = findViewById(R.id.spinner);
+        ArrayAdapter<String> spinAdapt = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, itemSpinner);
+        spinnerOne.setAdapter(spinAdapt);
+        spinnerOne.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                nameWorkout = String.valueOf(parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         //mHelper=new WorkoutsDbHelper(this);
         CalendarView newDate = findViewById(R.id.calendarCard);
         newDate.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -71,7 +90,7 @@ public class logCardioActivity extends AppCompatActivity {
     public void onAddWork(View v)
     {
         //EditText time = findViewById(R.id.timeWork);
-        EditText name = findViewById(R.id.nameWork);
+        //EditText name = findViewById(R.id.nameWork);
         EditText duration = findViewById(R.id.duration);
         EditText distance = findViewById(R.id.distance);
 
@@ -110,7 +129,7 @@ public class logCardioActivity extends AppCompatActivity {
 
         //timeWorkout = time.getText().toString();
 
-        nameWorkout = name.getText().toString();
+        //nameWorkout = name.getText().toString();
         durationWorkout = duration.getText().toString();
         temp = distance.getText().toString();
         if(temp.isEmpty())
@@ -128,7 +147,7 @@ public class logCardioActivity extends AppCompatActivity {
         Toast.makeText(this,"Added to DB", Toast.LENGTH_SHORT).show();
 
         //time.setText("");
-        name.setText("");
+        //name.setText("");
         duration.setText("");
         distance.setText("");
 
