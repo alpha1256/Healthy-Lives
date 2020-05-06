@@ -177,4 +177,9 @@ public class profileSettingActivity extends AppCompatActivity {
         authUser.signOut();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
+
+    public void onClickSendFire(View v)
+    {
+        //sendDataToFirebase();
+    }
 }
