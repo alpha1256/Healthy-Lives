@@ -42,8 +42,9 @@ public class friendProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_profile);
         Intent intent = getIntent();
-        name = intent.getStringExtra("Name");
-        setTitle(name + " profile");
+        //Name variable
+        email = intent.getStringExtra("Name");
+        setTitle(email + " profile");
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference=mDatabase.getReference();
        // mDatabaseReference=mDatabase.getReference();
