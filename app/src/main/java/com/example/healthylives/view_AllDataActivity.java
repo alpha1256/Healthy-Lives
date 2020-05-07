@@ -55,6 +55,10 @@ public class view_AllDataActivity extends AppCompatActivity {
         ArrayList<Day> dayList=new ArrayList<>();
         SQLiteDatabase db=MainActivity.mHelper.getReadableDatabase();
         Cursor cursor=db.query(DaysContract.DayEntry.TABLE1, new String[]{DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_DAY_STEP, DaysContract.DayEntry.COL_DAY_MIN, DaysContract.DayEntry.COL_DAY_CUP, DaysContract.DayEntry.COL_DAY_SLEEP}, null, null, null, null, null);
+        if(cursor.getCount()<1)
+        {
+            return dayList;
+        }
         if(cursor.moveToFirst())
         {
             while (cursor.moveToNext())

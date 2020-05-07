@@ -62,6 +62,10 @@ public class workoutActivity extends AppCompatActivity {
         ArrayList<Workout> workoutList=new ArrayList<>();
         SQLiteDatabase db=workoutHelper.getReadableDatabase();
         Cursor cursor=db.query(DaysContract.DayEntry.TABLE2, new String[]{DaysContract.DayEntry.COL_WORKOUT_TIME, DaysContract.DayEntry.COL_WORKOUT_NAME, DaysContract.DayEntry.COL_DAY_DATE, DaysContract.DayEntry.COL_WORKOUT_DURATION, DaysContract.DayEntry.COL_WORKOUT_DISTANCE}, null, null, null, null, null);
+        if(cursor.getCount()<1)
+        {
+            return workoutList;
+        }
         if(cursor.moveToFirst())
         {
             while (cursor.moveToNext())
