@@ -57,8 +57,11 @@ public class profileSettingActivity extends AppCompatActivity {
         updateView();
         Intent intent = getIntent();
         if (getIntent() != null)
+        {
             email = intent.getStringExtra("Username");
-        Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
+        }
+        //Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference=mDatabase.getReference();
@@ -133,7 +136,7 @@ public class profileSettingActivity extends AppCompatActivity {
         editor.putString(NAME,userName);
         editor.putString(HEIGHT, userHeight);
         editor.putString(WEIGHT, userWeight);
-        editor.putString(EMAIL, email);
+        //editor.putString(EMAIL, email);
         editor.commit();
     }
 
@@ -145,7 +148,7 @@ public class profileSettingActivity extends AppCompatActivity {
         userWeight = sp.getString(WEIGHT,"");
         userHeight = sp.getString(HEIGHT, "1");
         userName = sp.getString(NAME, "");
-        email = sp.getString(EMAIL, "");
+        //email = sp.getString(EMAIL, "");
         updateView();
     }
 
@@ -189,6 +192,6 @@ public class profileSettingActivity extends AppCompatActivity {
         String temp=email;
         intent.putExtra("email", temp);
         startService(intent);
-
+        Toast.makeText(this, "Workout sent to Firebase", Toast.LENGTH_SHORT).show();
     }
 }

@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.healthylives.Adapter.Workout;
 import com.example.healthylives.Database.DaysContract;
@@ -44,19 +46,16 @@ public class friendProfileActivity extends AppCompatActivity {
         setTitle(name + " profile");
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference=mDatabase.getReference();
-        mDatabaseReference=mDatabase.getReference().child("Users").child(email);
+       // mDatabaseReference=mDatabase.getReference();
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //List<ArrayList<Workout>> workoutList = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    //String name = ds.child("username").getValue(String.class);
-                    //String ab = ds.getKey();
                     ArrayList<Workout> workouts= ds.child("workouts").getValue(ArrayList.class);
                     listOfWorkouts=workouts;
+                    //TODO check if email matches name variable if it is output that row
 
-                    //String name = String.valueOf(ds.getValue());
-                    //workoutList.add(0, workouts);
                 }
 
             }
