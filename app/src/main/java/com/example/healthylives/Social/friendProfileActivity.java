@@ -9,7 +9,9 @@ import com.example.healthylives.R;
 
 public class friendProfileActivity extends AppCompatActivity {
     private String name;
+    private String email;
 
+    //TODO we need the email
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
