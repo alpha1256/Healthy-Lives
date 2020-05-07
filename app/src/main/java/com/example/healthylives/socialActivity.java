@@ -3,7 +3,9 @@ package com.example.healthylives;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -115,7 +117,7 @@ public class socialActivity extends AppCompatActivity {
         if (user != null)
         {
             Intent intent = new Intent(this, profileSettingActivity.class);
-            //intent.putExtra("Username", email);
+            intent.putExtra("Username", email);
             startActivity(intent);
         }
     }
@@ -124,6 +126,24 @@ public class socialActivity extends AppCompatActivity {
     public void onStop()
     {
         super.onStop();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        SharedPreferences sp = getSharedPreferences("Social", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("EMAIL", email);
+        editor.commit();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("Social", Context.MODE_PRIVATE);
+        email=sp.getString("EMAIL", "");
     }
 
 }

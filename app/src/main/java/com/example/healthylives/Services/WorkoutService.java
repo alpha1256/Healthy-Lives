@@ -62,13 +62,16 @@ public class WorkoutService extends IntentService {
                 String duration=cursor.getString(idx);
                 idx=cursor.getColumnIndex(DaysContract.DayEntry.COL_WORKOUT_DISTANCE);
                 float distance=cursor.getFloat(idx);
-                workoutList.add(new Workout(time, name, date, duration, distance));
+                Workout work = new Workout(time,name,date,duration,distance);
+                work.setEmail(intent.getStringExtra("email"));
+                //workoutList.add(new Workout(time, name, date, duration, distance));
+                workoutList.add(work);
             }
             FirebaseDatabase mDatabase;
             DatabaseReference mDatabaseReference;
             mDatabase = FirebaseDatabase.getInstance();
             mDatabaseReference=mDatabase.getReference();
-            mDatabaseReference=mDatabase.getReference().child("Users").child(intent.getStringExtra("email")).child("workouts");
+            mDatabaseReference=mDatabase.getReference().child("workouts");
             mDatabaseReference.setValue(workoutList);
         }
     }

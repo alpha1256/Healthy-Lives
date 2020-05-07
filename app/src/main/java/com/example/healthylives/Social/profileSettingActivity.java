@@ -41,6 +41,7 @@ public class profileSettingActivity extends AppCompatActivity {
     public static final String NAME = "User name";
     public static final String HEIGHT = "User height";
     public static final String WEIGHT = "User weight";
+    public static final String EMAIL = "Email";
     private FirebaseUser user;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
@@ -55,7 +56,8 @@ public class profileSettingActivity extends AppCompatActivity {
         setTitle("Profile Settings");
         updateView();
         Intent intent = getIntent();
-        email = intent.getStringExtra("Username");
+        if (getIntent() != null)
+            email = intent.getStringExtra("Username");
         Toast.makeText(this, "You are Signed In",Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
@@ -91,7 +93,7 @@ public class profileSettingActivity extends AppCompatActivity {
         TextView height = findViewById(R.id.heightView);
         TextView weight = findViewById(R.id.weightView);
 
-        name.setText(userName);
+        name.setText(email);
         height.setText(userHeight);
         weight.setText(userWeight);
     }
@@ -131,6 +133,7 @@ public class profileSettingActivity extends AppCompatActivity {
         editor.putString(NAME,userName);
         editor.putString(HEIGHT, userHeight);
         editor.putString(WEIGHT, userWeight);
+        editor.putString(EMAIL, email);
         editor.commit();
     }
 
@@ -141,7 +144,8 @@ public class profileSettingActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("Localuser", Context.MODE_PRIVATE);
         userWeight = sp.getString(WEIGHT,"");
         userHeight = sp.getString(HEIGHT, "1");
-        userName = sp.getString(NAME, "2");
+        userName = sp.getString(NAME, "");
+        email = sp.getString(EMAIL, "");
         updateView();
     }
 
