@@ -24,8 +24,15 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
+/**
+ * Visualization of all cardio workouts
+ */
 public class visual_workoutActivity extends AppCompatActivity {
 
+    /**
+     * Draws graph of all logged cardio workouts
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +103,11 @@ public class visual_workoutActivity extends AppCompatActivity {
         lineChartView.setCurrentViewport(viewport);
     }
 
+    /**
+     * Get max value of an arraylist
+     * @param temp
+     * @return
+     */
     int getMax(ArrayList <Integer> temp)
     {
         int max=0;

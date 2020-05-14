@@ -40,6 +40,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class which allows users to view all their scheduled workout in a recycler view
+ */
 public class viewPlanActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -51,6 +54,7 @@ public class viewPlanActivity extends AppCompatActivity {
     MyBroadCastReceiver myBroadCastReceiver = new MyBroadCastReceiver();
     private int i;
     private boolean check = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,9 @@ public class viewPlanActivity extends AppCompatActivity {
         }*/
     }
 
+    /**
+     * Prepares data for adapter and adds it to workoutPlan list
+     */
     public void prepareTestDate()
     {
         String data = "";
@@ -120,6 +127,9 @@ public class viewPlanActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Stop service and update file
+     */
     @Override
     public void onStop()
     {
@@ -128,6 +138,9 @@ public class viewPlanActivity extends AppCompatActivity {
         stopService(new Intent(this, sendNotif.class));
     }
 
+    /**
+     * Unregisters reciever
+     */
     @Override
     public void onDestroy()
     {
@@ -135,6 +148,9 @@ public class viewPlanActivity extends AppCompatActivity {
         unregisterReceiver(myBroadCastReceiver);
     }
 
+    /**
+     * Updates all_workout.txt file
+     */
     void onUpdate()
     {
         try {
@@ -153,7 +169,7 @@ public class viewPlanActivity extends AppCompatActivity {
         }
     }
 
-    //TODO move this to a service so  it always running
+    //This has been moved to sendNotif service
     public void onNotif()
     {
         SimpleDateFormat sdf = new SimpleDateFormat("d-M-yyyy");
@@ -196,7 +212,9 @@ public class viewPlanActivity extends AppCompatActivity {
         }
     }
 
-    //TODO work on receiving updated information from service
+    /**
+     * Sends workoutPlan to sendNotif service and starts the service
+     */
     public void startPlanNotify()
     {
         Intent intent = new Intent(this, sendNotif.class);
@@ -206,6 +224,9 @@ public class viewPlanActivity extends AppCompatActivity {
         startService(intent);
     }
 
+    /**
+     * Registers MyBroadcastReceiver
+     */
     private void registerMyReceiver() {
 
         try
@@ -221,6 +242,9 @@ public class viewPlanActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Broadcast Reciever which is triggered by sendNotif which get workoutPlan which triggered the notification
+     */
     class MyBroadCastReceiver extends BroadcastReceiver
     {
         @Override
@@ -235,6 +259,9 @@ public class viewPlanActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates workoutPlan list using the workoutPlan value which triggered the notification and updates the adapter
+     */
     public void setTrueValue()
     {
         worklist.get(i).setCheckMark(true);

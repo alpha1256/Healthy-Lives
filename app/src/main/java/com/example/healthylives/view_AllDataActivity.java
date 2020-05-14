@@ -18,6 +18,9 @@ import com.example.healthylives.Database.DaysDbHelper;
 
 import java.util.ArrayList;
 
+/**
+ * View all daily data in the sqlite database in a recycler view
+ */
 public class view_AllDataActivity extends AppCompatActivity {
     //public static DaysDbHelper mHelper;
     private RecyclerView recycler;
@@ -25,6 +28,10 @@ public class view_AllDataActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private mainDataAdapter adapter;
 
+    /**
+     * Setting up adapter and recycler view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +56,10 @@ public class view_AllDataActivity extends AppCompatActivity {
         }
     }
 
-    //TODO add method to retrieve this data from the database
+    /**
+     * Get all workout from database  and return it as a workoutPlan list
+     * @return workout list
+     */
     public ArrayList<Day> getData()
     {
         ArrayList<Day> dayList=new ArrayList<>();

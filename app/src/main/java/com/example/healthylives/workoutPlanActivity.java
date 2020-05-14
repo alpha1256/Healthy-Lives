@@ -17,10 +17,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**
+ * Logging of new workoutPlan to file
+ */
 public class workoutPlanActivity extends AppCompatActivity {
     String date = new String();
 
+    /**
+     * Initialization of variables and calender 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +42,10 @@ public class workoutPlanActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Button click which adds new workoutPlan to all_workout.txt
+     * @param v
+     */
     public void addNewWorkoutPlan(View v)
     {
         TimePicker newTime = findViewById(R.id.timePicker);
@@ -94,6 +103,10 @@ public class workoutPlanActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Button click which take users to viewPlan Activity
+     * @param v
+     */
     public void onClickView(View v)
     {
         Intent intent = new Intent(this, viewPlanActivity.class);

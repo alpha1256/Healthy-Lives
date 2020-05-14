@@ -18,13 +18,19 @@ import com.example.healthylives.Database.WorkoutsDbHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Workout activity which takes user to logcardio or visual_workout. Also sends all cardio workout from db to visual_workout activity
+ */
 public class workoutActivity extends AppCompatActivity {
 
     public static WorkoutsDbHelper workoutHelper;
     private ArrayList <Integer> durationList = new ArrayList<Integer>();
     private ArrayList <Integer> distanceList = new ArrayList<Integer>();
 
+    /**
+     * Sends distance and duration list to visual_workout Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +49,20 @@ public class workoutActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Button click which sends user to logcardio Activity
+     * @param v
+     */
     public void onClickCard(View v)
     {
         Intent intent = new Intent(this,logCardioActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Button click which takes user to visual_workout activity and also sends the durationlist and distancelist to this activyt
+     * @param v
+     */
     public void onClickVisual(View v)
     {
         Intent intent = new Intent(this, visual_workoutActivity.class);
@@ -57,6 +71,10 @@ public class workoutActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Get cardio workouts from sqlite database and returns this in a workout list
+     * @return
+     */
     public ArrayList<Workout> getWorkouts()
     {
         ArrayList<Workout> workoutList=new ArrayList<>();

@@ -13,6 +13,9 @@ import com.example.healthylives.Services.SleepTimer;
 import static com.example.healthylives.MainActivity.sleepMin;
 import static com.example.healthylives.Services.SleepTimer.time;
 
+/**
+ * Sleep activity which starts timer
+ */
 public class sleepActivity extends AppCompatActivity {
 
     TextView recordSleep;

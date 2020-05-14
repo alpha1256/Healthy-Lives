@@ -47,7 +47,9 @@ import java.util.TimerTask;
 
 import static java.sql.Types.NULL;
 
-
+/**
+ * Main activity the home activity which displays steps, water intake and steps
+ */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private int waterCount=0;
     private int steps =0;
@@ -71,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     SleepBroadCast receiveSleep = new SleepBroadCast();
 
 
+    /**
+     * Register database, broadcast receiver and sensor manager also get the time
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,12 +90,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         registerReceiver();
     }
 
+    /**
+     * Inflates navigation menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
+    /**
+     * On item click on menu takes user to corresponding activity
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -125,6 +141,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Button click which allows user to add to the water intake
+     * @param v
+     */
     public void onClickAdd(View v)
     {
         TextView water = (TextView) findViewById(R.id.waterCounter);
@@ -132,12 +152,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         water.setText(String.valueOf(waterCount));
     }
 
+    /**
+     * Takes user to new activity which displays all their daily data
+     * @param v
+     */
     public void onClickViewAll(View v)
     {
         Intent intent = new Intent(this, view_AllDataActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Button click which subtracts from water intake
+     * @param v
+     */
     public void onClickSubtract(View v)
     {
         TextView water = (TextView) findViewById(R.id.waterCounter);
@@ -158,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This is the step counting algorithm
+     * This get steps from the stepcounter sensor and applies the step counting algorithm. Also the active min is also calculated
      * @param event
      */
     @Override
@@ -176,6 +204,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
+    /**
+     * On pause the daily data is placed into a shared preference
+     */
     @Override
     public void onPause()
     {
@@ -185,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt(STEPS,steps);
         editor.putInt(COUNTSTEPS, counterSteps);
+        editor.putString(SLEEP, sleepMin); //Added the sleep
         if (waterCount > 0)
             editor.putInt(WATER,waterCount);
         if (activeMin > 0)
@@ -195,7 +227,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show();
     }
 
-    /****/
+    /**
+     * On resume the local data is retrieved from the shared preference
+     */
     @Override
     public void onResume()
     {
@@ -209,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         else{
             steps = sp.getInt(STEPS,1);
             counterSteps = sp.getInt(COUNTSTEPS,0);
+            sleepMin = sp.getString(SLEEP, ""); //Added the sleep
             if (sp.getInt(WATER,0) != NULL)
             {
                 waterCount = sp.getInt(WATER,0);
@@ -235,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }**/
 
     /**
-     * Every twenty four hours update db and reset step and water
+     * Every twenty four hours update db and reset step and water *Note not currently being used
      */
     public void onTwentyFour()
     {
@@ -278,6 +313,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //stopService(new Intent(this,SendDataToDB.class));
     }
 
+    /**
+     * Button click which records daily data to sqlite database
+     * @param v
+     */
     public void onClickRecord(View v)
     {
         SQLiteDatabase db = mHelper.getWritableDatabase();
@@ -299,6 +338,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         recreate();
     }
 
+    /**
+     * Formats current data
+     */
     public void getDate()
     {
         SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yy");
@@ -306,7 +348,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-
+    /**
+     * Register the sleep receiver
+     */
     private void registerReceiver()
     {
         try{
@@ -320,6 +364,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    /**
+     * Sleep broadcast receiver is triggered by sleep timer
+     */
     class SleepBroadCast extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent)

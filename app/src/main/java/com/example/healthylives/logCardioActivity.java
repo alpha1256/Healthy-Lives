@@ -25,6 +25,9 @@ import com.example.healthylives.Database.WorkoutsDbHelper;
 import static com.example.healthylives.workoutActivity.workoutHelper;
 import static java.lang.Float.parseFloat;
 
+/**
+ * This class allows logging of cardio workouts
+ */
 public class logCardioActivity extends AppCompatActivity {
     private String timeWorkout = new String();
     private String nameWorkout = new String();
@@ -34,6 +37,10 @@ public class logCardioActivity extends AppCompatActivity {
     private String temp=" ";
     //private WorkoutsDbHelper mHelper;
 
+    /**
+     * Initialize local variables, spinner and calendar
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +94,10 @@ public class logCardioActivity extends AppCompatActivity {
         });
     }*/
 
+    /**
+     * Button click which allows user add cardio workout to database
+     * @param v
+     */
     public void onAddWork(View v)
     {
         //EditText time = findViewById(R.id.timeWork);
@@ -151,8 +162,6 @@ public class logCardioActivity extends AppCompatActivity {
         duration.setText("");
         distance.setText("");
 
-
-        //TODO add this data to database
         SQLiteDatabase db=workoutHelper.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(DaysContract.DayEntry.COL_WORKOUT_TIME, timeWorkout);
@@ -164,8 +173,5 @@ public class logCardioActivity extends AppCompatActivity {
         db.close();
         Intent intent = new Intent(this,workoutActivity.class);
         startActivity(intent);
-
-
-
     }
 }
