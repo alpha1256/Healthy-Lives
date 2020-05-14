@@ -1,5 +1,11 @@
 # Healthy-Lives
-This is an Android health application that allow users to track their health stats such as their steps,activity, sleep, water intake, log cardio workout. Users will also be able to schedule which days and time they will be going to the gym when that day arrives they will get a notification. Users will also be able to share these stats with their friends.
+This is a fitness tracking application.
+
+**Features**
+- Users can track their health stats such as their steps,activity, sleep, water intake. 
+- Users can log cardio workout 
+- Users will also be able to schedule which days and time they will be going to the gym when that day arrives they will get a notification. 
+- Users will also be able to share these stats with their friends.
 
 ### Installation
 
