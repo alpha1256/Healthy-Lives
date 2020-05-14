@@ -11,6 +11,9 @@ import com.example.healthylives.R;
 
 import java.util.List;
 
+/**
+ * workoutAdapter for the recycler view
+ */
 public class workoutAdapter extends RecyclerView.Adapter<workoutAdapter.MyViewHolder> {
     private List<workoutPlan> workoutList;
 

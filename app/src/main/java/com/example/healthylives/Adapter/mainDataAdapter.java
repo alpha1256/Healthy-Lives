@@ -11,6 +11,9 @@ import com.example.healthylives.R;
 
 import java.util.List;
 
+/**
+ * mainDataAdapter for the Recycler view
+ */
 public class mainDataAdapter extends RecyclerView.Adapter<mainDataAdapter.Viewholder> {
     private List <Day> allDatalist;
 

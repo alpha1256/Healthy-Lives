@@ -1,5 +1,7 @@
 package com.example.healthylives.Adapter;
-
+/**
+ * Daily data steps, watercount, active minutes, sleep and current date
+ */
 public class Day {
     String date;
     int steps;
