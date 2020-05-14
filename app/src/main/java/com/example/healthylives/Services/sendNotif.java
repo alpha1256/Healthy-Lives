@@ -34,9 +34,7 @@ import java.util.List;
 
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
+ * A {@link IntentService} service which displays a notification when it time for a workout (i.e. it the current time and date)
  **/
 public class sendNotif extends Service {
 
@@ -50,6 +48,13 @@ public class sendNotif extends Service {
         Toast.makeText(this, "Started", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Checks onNotif and then sends a broadcast to visual_workoutActivity with the current workout value
+     * @param intent
+     * @param flags
+     * @param startid
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags ,int startid)
     {
@@ -85,6 +90,9 @@ public class sendNotif extends Service {
     }
 
 
+    /**
+     * Checks the workoutplan array list if it the current date and time then displays a notification
+     */
     public void onNotif()
     {
         SimpleDateFormat sdf = new SimpleDateFormat("d-M-yyyy");

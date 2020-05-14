@@ -40,7 +40,7 @@ public class socialActivity extends AppCompatActivity {
     private String email = new String();
 
     /**
-     * Initialization of firebase variables and checks if the firebase state has been changed which then sends the email and takes user to profile setting activity class 
+     * Initialization of firebase variables and checks if the firebase state has been changed which then sends the email and takes user to profile setting activity class
      * @param savedInstanceState
      */
     @Override

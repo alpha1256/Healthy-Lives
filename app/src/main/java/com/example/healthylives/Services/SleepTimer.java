@@ -8,6 +8,9 @@ import android.os.IBinder;
 
 import com.example.healthylives.MainActivity;
 
+/**
+ * Sleep timer
+ */
 public class SleepTimer extends Service {
 
     private boolean recording;
