@@ -34,6 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class has to deal with the user profile
+ */
 public class profileSettingActivity extends AppCompatActivity {
     private  String userName = new String();
     private String userHeight = new String();
@@ -49,6 +52,10 @@ public class profileSettingActivity extends AppCompatActivity {
     private String email = new String ();
 
 
+    /**
+     * Initialization of the firebase variables and get email from the previous activity (social activity)
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +97,9 @@ public class profileSettingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
      }
 
+    /**
+     * Update the view with the current name, height and weight
+     */
     public void updateView()
     {
         TextView name = findViewById(R.id.nameView);
@@ -101,6 +111,10 @@ public class profileSettingActivity extends AppCompatActivity {
         weight.setText(userWeight);
     }
 
+    /**
+     * This update the local user profile and update the username of the user on firebase
+     * @param v
+     */
     public void onClickUpdate(View v)
     {
         EditText name = findViewById(R.id.nameEntry);
@@ -128,6 +142,9 @@ public class profileSettingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * On pause saves user data into a shared preference
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -140,6 +157,9 @@ public class profileSettingActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    /**
+     * On resume retrieves user data from a shared preference
+     */
     @Override
     public void onResume()
     {
@@ -179,6 +199,10 @@ public class profileSettingActivity extends AppCompatActivity {
         mDatabaseReference.setValue(workoutList);
     }*/
 
+    /**
+     * Button click that signs ours out
+     * @param v
+     */
     public void onClickSignOut(View v)
     {
         FirebaseAuth authUser = FirebaseAuth.getInstance();
@@ -186,6 +210,11 @@ public class profileSettingActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
+
+    /**
+     * Button click that update firebase with the most recent workout node
+     * @param v
+     */
     public void onClickSendFire(View v)
     {
         Intent intent=new Intent(this, WorkoutService.class);

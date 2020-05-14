@@ -1,5 +1,8 @@
 package com.example.healthylives.Social;
 
+/**
+ * Users for the firebase users node
+ */
 public class Users {
     private String username;
 

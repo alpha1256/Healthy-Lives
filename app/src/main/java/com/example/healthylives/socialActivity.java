@@ -24,6 +24,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * This class allows login and account creation
+ */
 public class socialActivity extends AppCompatActivity {
     private EditText mailInput;
     private EditText passwordInput;
@@ -36,6 +39,10 @@ public class socialActivity extends AppCompatActivity {
     private DatabaseReference dataReference;
     private String email = new String();
 
+    /**
+     * Initialization of firebase variables and checks if the firebase state has been changed which then sends the email and takes user to profile setting activity class 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +61,6 @@ public class socialActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null)
                 {
-                    //Todo after sign in go to next activity
                     Intent intent = new Intent(getApplicationContext(), profileSettingActivity.class);
                     //FirebaseUser user = firebaseAuth.getCurrentUser();
                     intent.putExtra("Username", email);
@@ -62,15 +68,21 @@ public class socialActivity extends AppCompatActivity {
                 }
             }
         };
-
-
     }
 
+    /**
+     * Button click which calls signIn()
+     * @param v
+     */
     public void onClickLogin(View v)
     {
         signIn();
     }
 
+    /**
+     * Button click which allows users to sign up for firebase with email and password
+     * @param v
+     */
     public void onClickSignup(View v)
     {
         email = mailInput.getText().toString();
@@ -86,12 +98,15 @@ public class socialActivity extends AppCompatActivity {
                     dataReference.push().setValue(newUser);
                     Toast.makeText(getApplicationContext(), "Created Account", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), "Not Successful hint password length", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Not Successful", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    /**
+     * This allows users to sign in, if not successful displays message
+     */
     private void signIn()
     {
         email = mailInput.getText().toString();
@@ -107,6 +122,9 @@ public class socialActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When activity is started firebase is checked. If the user is currently signed in, the email is sent to the profile settings activity which is also then started
+     */
     @Override
     public void onStart()
     {
@@ -128,6 +146,9 @@ public class socialActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    /**
+     * When activity is paused the email get put into a shared preference
+     */
     @Override
     public void onPause()
     {
@@ -138,6 +159,9 @@ public class socialActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    /**
+     * When activity is resumed the email is retrieved from the shared preference
+     */
     @Override
     public void onResume()
     {

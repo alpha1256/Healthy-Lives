@@ -16,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
+ * An {@link IntentService} workout service that pushes a new workout to firebase
  * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
 public class WorkoutService extends IntentService {

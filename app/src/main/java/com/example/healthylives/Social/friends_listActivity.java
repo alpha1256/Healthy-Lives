@@ -24,11 +24,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class shows the friends or user list
+ */
 public class friends_listActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
     private ListView mUserListView;
 
+    /**
+     * Adapter get all users in the Users node for firebase and displays it as a
+     * clickable item in the List View which takes users to friendProfileActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

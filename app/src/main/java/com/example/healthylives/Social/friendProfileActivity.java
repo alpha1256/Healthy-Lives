@@ -36,7 +36,11 @@ public class friendProfileActivity extends AppCompatActivity {
     //private ListView mWorkoutListView;
     private ArrayList<Workout> listOfWorkouts;
 
-    //TODO we need the email
+    /**
+     * This function get all the workouts and displays all their workouts
+     * @param savedInstanceState
+     */
+    //TODO Need the email
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

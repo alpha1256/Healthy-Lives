@@ -1,5 +1,8 @@
 package com.example.healthylives.Adapter;
 
+/**
+Workout class which contains time, name, date, email, distance and duration
+ */
 public class Workout {
     private String time;
     private String name;
