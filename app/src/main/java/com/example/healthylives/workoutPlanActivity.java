@@ -24,7 +24,7 @@ public class workoutPlanActivity extends AppCompatActivity {
     String date = new String();
 
     /**
-     * Initialization of variables and calender 
+     * Initialization of variables and calender
      * @param savedInstanceState
      */
     @Override
