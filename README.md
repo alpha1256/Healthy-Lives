@@ -9,10 +9,8 @@ This is a fitness tracking application for Android.
 
 ### Installation
 
-Clone this repository using 
-```
-git clone git@github.com:alpha1256/Healthy-Lives.git
-```
+- Clone this repository using ```git clone git@github.com:alpha1256/Healthy-Lives.git ```
+- Build the application using `gradle build`
 
 #### Requirements
 To use this application:
